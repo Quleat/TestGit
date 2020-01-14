@@ -687,8 +687,9 @@ Transform:
   m_Children:
   - {fileID: 2120823818}
   - {fileID: 437081498}
+  - {fileID: 1976709306}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1113419353
 MonoBehaviour:
@@ -703,9 +704,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 1113419354}
+  bp: {fileID: -4851796250390721550, guid: f278968dc0e47d1498c885ad8f6228e8, type: 3}
   inputx: 0
   speed: 50
   thrust: 100
+  Bullet: {fileID: 6434866026098689884, guid: f278968dc0e47d1498c885ad8f6228e8, type: 3}
+  player: {fileID: 1113419352}
 --- !u!50 &1113419354
 Rigidbody2D:
   serializedVersion: 4
@@ -942,7 +946,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 1.7159481
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -965,12 +969,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976709303}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.96000004, y: -0.34500003, z: -4.995}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 1113419352}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2029207303
 GameObject:
@@ -1147,5 +1151,5 @@ Transform:
   - {fileID: 1451619757}
   - {fileID: 1093446213}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
