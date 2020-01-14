@@ -19,6 +19,6 @@ public class CharacterControl : MonoBehaviour
         inputx = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(inputx, Character.velocity.y) * Time.deltaTime * speed;
         Character.velocity = movement;
-        if (Input.GetKeyDown(KeyCode.W)) Character.AddForce(Vector2.up * thrust, ForceMode2D.Force);
+        if (Input.GetKeyDown(KeyCode.W)) Character.AddForce(new Vector2(0,600));
     }
 }
