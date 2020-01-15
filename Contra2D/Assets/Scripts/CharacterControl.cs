@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class CharacterControl : MonoBehaviour
 {
@@ -13,10 +15,10 @@ public class CharacterControl : MonoBehaviour
     public GameObject Bullet;
     public Transform player;
     public Transform Cm;
+    private IEnumerator corountine;
     void Start()
     {
         Character = GetComponent<Rigidbody2D>();
-
         check = FindObjectOfType<Check>();
     }
    void Update()
@@ -27,12 +29,30 @@ public class CharacterControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && check.OnGround) Character.AddForce(new Vector2(0,600));
         if(Input.GetKeyDown(KeyCode.F))
         {
-            GameObject Bulletprefab = Instantiate(Bullet) as GameObject;
-            Bulletprefab.transform.position = player.position;
-            bp = Bulletprefab.GetComponent<Rigidbody2D>();
-            bp.AddForce(new Vector2(20, 0) * Time.deltaTime);
+            corountine = SpawnBullets(0.3f);
+            StartCoroutine(corountine);            
         }
+        if (Input.GetKeyUp(KeyCode.F)) { StopCoroutine(corountine); }
         if ((player.position.x) >= -7.7) { Cm.transform.position = new Vector3(player.position.x, Cm.transform.position.y, -1); }
         
+    }
+    private void FixedUpdate()
+    {
+        
+    }
+    IEnumerator SpawnBullets(float times)
+    {
+     while(true)
+        {
+            yield return new WaitForSeconds(times);
+            SpawnBullet();
+        }
+    }
+    void SpawnBullet()
+    {
+        GameObject Bulletprefab = Instantiate(Bullet) as GameObject;
+        Bulletprefab.transform.position = player.position;
+        bp = Bulletprefab.GetComponent<Rigidbody2D>();
+        bp.velocity = new Vector2(1f, 0);
     }
 }
