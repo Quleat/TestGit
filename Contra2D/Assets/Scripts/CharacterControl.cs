@@ -29,7 +29,7 @@ public class CharacterControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && check.OnGround) Character.AddForce(new Vector2(0,600));
         if(Input.GetKeyDown(KeyCode.F))
         {
-            corountine = SpawnBullets(0.3f);
+            corountine = SpawnsBullets(0.3f);
             StartCoroutine(corountine);            
         }
         if (Input.GetKeyUp(KeyCode.F)) { StopCoroutine(corountine); }
@@ -40,7 +40,7 @@ public class CharacterControl : MonoBehaviour
     {
         
     }
-    IEnumerator SpawnBullets(float times)
+    IEnumerator SpawnsBullets(float times)
     {
      while(true)
         {
