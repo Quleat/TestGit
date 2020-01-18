@@ -55,4 +55,12 @@ public class CharacterControl : MonoBehaviour
         bp = Bulletprefab.GetComponent<Rigidbody2D>();
         bp.velocity = new Vector2(1f, 0);
     }
+   void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "BulletEnemy")
+        {
+            Debug.Log("Hit");
+            Destroy(gameObject);
+        }
+    }
 }

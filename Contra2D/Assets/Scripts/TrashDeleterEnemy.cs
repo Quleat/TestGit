@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrashDeleter : MonoBehaviour
+public class TrashDeleterEnemy : MonoBehaviour
 {
     public LayerMask WhatIsTrashCollider;
     public Transform BulletPos;
@@ -10,7 +10,7 @@ public class TrashDeleter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,4 +23,6 @@ public class TrashDeleter : MonoBehaviour
             Test.hit = false;
         }
     }
+    
+
 }

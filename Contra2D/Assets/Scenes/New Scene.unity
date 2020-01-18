@@ -276,7 +276,7 @@ GameObject:
   m_Layer: 10
   m_Name: Check2
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -536,7 +536,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1010,6 +1010,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 3.6}
   m_EdgeRadius: 0
+--- !u!212 &1619465357 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5228052905396493065, guid: 8fef32e28f4ec3943b7142d41506d670,
+    type: 3}
+  m_PrefabInstance: {fileID: 3536527891040066540}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1813489222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1239,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120823817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.2, z: 0}
+  m_LocalPosition: {x: -0.03, y: -0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1113419352}
@@ -1350,10 +1356,20 @@ PrefabInstance:
       propertyPath: point_2
       value: 
       objectReference: {fileID: 119348434}
+    - target: {fileID: 2776069401254262474, guid: 8fef32e28f4ec3943b7142d41506d670,
+        type: 3}
+      propertyPath: enemySpriteRender
+      value: 
+      objectReference: {fileID: 1619465357}
     - target: {fileID: 3431616721324284691, guid: 8fef32e28f4ec3943b7142d41506d670,
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3536527891987829892, guid: 8fef32e28f4ec3943b7142d41506d670,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4911183360951533027, guid: 8fef32e28f4ec3943b7142d41506d670,
         type: 3}
