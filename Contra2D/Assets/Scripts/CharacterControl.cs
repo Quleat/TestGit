@@ -7,7 +7,9 @@ using System;
 public class CharacterControl : MonoBehaviour
 {
     public Rigidbody2D Character;
-    public Rigidbody2D bp;
+    private Rigidbody2D bp1;
+    private Rigidbody2D bp2;
+    private Rigidbody2D bp3;
     public float inputx;
     public float speed = 50f;
     public float thrust = 100f;
@@ -16,6 +18,7 @@ public class CharacterControl : MonoBehaviour
     public Transform player;
     public Transform Cm;
     private IEnumerator corountine;
+   
     void Start()
     {
         Character = GetComponent<Rigidbody2D>();
@@ -35,6 +38,7 @@ public class CharacterControl : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.F)) { StopCoroutine(corountine); }
         if ((player.position.x) >= -7.7) { Cm.transform.position = new Vector3(player.position.x, Cm.transform.position.y, -1); }
         
+        
     }
     private void FixedUpdate()
     {
@@ -49,15 +53,29 @@ public class CharacterControl : MonoBehaviour
         }
     }
     void SpawnBullet()
-    {
-        GameObject Bulletprefab = Instantiate(Bullet) as GameObject;
-        Bulletprefab.transform.position = player.position;
-        bp = Bulletprefab.GetComponent<Rigidbody2D>();
-        bp.velocity = new Vector2(1f, 0);
+    { 
+        GameObject Bulletprefab1 = Instantiate(Bullet) as GameObject;
+        Bulletprefab1.transform.position = player.position;
+        bp1 = Bulletprefab1.GetComponent<Rigidbody2D>();
+        //if(where == "forward") { }
+        bp1.velocity = new Vector2(1f, 1f);
+        
+
+        GameObject Bulletprefab2 = Instantiate(Bullet) as GameObject;
+        Bulletprefab2.transform.position = player.position;
+        bp2 = Bulletprefab2.GetComponent<Rigidbody2D>();
+        //if(where == "forward") { }
+        bp2.velocity = new Vector2(1f, 0);
+
+        GameObject Bulletprefab3 = Instantiate(Bullet) as GameObject;
+        Bulletprefab3.transform.position = player.position;
+        bp3 = Bulletprefab3.GetComponent<Rigidbody2D>();
+        //if(where == "forward") { }
+        bp3.velocity = new Vector2(1f, -1f);
     }
    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "BulletEnemy")
+        if (collision.gameObject.tag == "Bullet")
         {
             Debug.Log("Hit");
             Destroy(gameObject);

@@ -17,14 +17,16 @@ public class Enemy : MonoBehaviour
     bool OnRight;
     private IEnumerator corountine;
     public bool seePlayerOnTheLeft;
+    public bool seePlayerOnTheRight;
     public GameObject Bullet;
     public float othTime = 1f;
+    public GameObject Character;
     
 
 
     void Start()
     {
-        corountine = SpawnBullets(0.3f);
+        corountine = SpawnBullets(0.8f);
         StartCoroutine(corountine);
     }
     // Update is called once per frame
@@ -52,16 +54,22 @@ public class Enemy : MonoBehaviour
     }
     void SpawningBullets()
     {     
-            seePlayerOnTheLeft = Physics2D.OverlapCircle(check1.position, 0, WhatIsPlayer);
-            if (seePlayerOnTheLeft)
+            //seePlayerOnTheLeft = Physics2D.OverlapCircle(check1.position, 0, WhatIsPlayer);
+            //seePlayerOnTheRight = Physics2D.OverlapCircle(check2.position, 0, WhatIsPlayer);
+            if (Character.transform.position.x < transform.position.x && !OnRight)
             {
                 GameObject BulletPrefab = Instantiate(Bullet) as GameObject;
                 Test.hit = true;
                 BulletPrefab.transform.position = enemy.position;
                 bp = BulletPrefab.GetComponent<Rigidbody2D>();
-                bp.velocity = new Vector2(-1f, 0);
-            
-
+                bp.velocity = new Vector2(-2f, 0);
+            } else if(Character.transform.position.x > transform.position.x && OnRight)
+            {
+            GameObject BulletPrefab = Instantiate(Bullet) as GameObject;
+            Test.hit = true;
+            BulletPrefab.transform.position = enemy.position;
+            bp = BulletPrefab.GetComponent<Rigidbody2D>();
+            bp.velocity = new Vector2(2f, 0);
             }
     }
     void MoveEnemy()
@@ -76,6 +84,14 @@ public class Enemy : MonoBehaviour
             enemy.velocity = new Vector2(-1f, 0);
             enemySpriteRender.flipX = true;
 
+        }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "BulletEnemy")
+        {
+            Debug.Log("Hit");
+            Destroy(gameObject);
         }
     }
 }

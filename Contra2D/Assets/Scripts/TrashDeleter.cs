@@ -7,6 +7,7 @@ public class TrashDeleter : MonoBehaviour
     public LayerMask WhatIsTrashCollider;
     public Transform BulletPos;
     public bool Destroing;
+    public bool EnemyBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,4 +24,5 @@ public class TrashDeleter : MonoBehaviour
             Test.hit = false;
         }
     }
+
 }
