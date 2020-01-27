@@ -17,12 +17,15 @@ public class TrashDeleter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroing = Physics2D.OverlapCircle(new Vector2(BulletPos.position.x, BulletPos.position.y), 0, WhatIsTrashCollider);
-        if (Destroing)
-        {
-            Destroy(this.gameObject);
-            Test.hit = false;
-        }
+        //estroing = Physics2D.OverlapCircle(new Vector2(BulletPos.position.x, BulletPos.position.y), 0, WhatIsTrashCollider);
+        //if (Destroing)
+        //{
+            //Destroy(this.gameObject);
+            //Test.hit = false;
+        //}
     }
-
+    private void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
+    }
 }

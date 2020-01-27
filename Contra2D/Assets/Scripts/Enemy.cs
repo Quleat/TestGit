@@ -43,6 +43,7 @@ public class Enemy : MonoBehaviour
         }
         othTime -= Time.deltaTime;
         
+        
     }
     IEnumerator SpawnBullets (float WaitTime)
     {
