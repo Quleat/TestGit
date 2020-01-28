@@ -36,7 +36,7 @@ public class CharacterControl : MonoBehaviour
             StartCoroutine(corountine);            
         }
         if (Input.GetKeyUp(KeyCode.F)) { StopCoroutine(corountine); }
-        if ((player.position.x) >= -7.7) { Cm.transform.position = new Vector3(player.position.x, Cm.transform.position.y, -1); }
+        if ((player.position.x) >= -7.7 && player.position.x > Cm.position.x) { Cm.transform.position = new Vector3(player.position.x, Cm.transform.position.y, -1); }
         
         
     }
