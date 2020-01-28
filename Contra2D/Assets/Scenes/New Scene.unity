@@ -293,7 +293,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397797612}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b44c50385a738e74bb1e690d85457e3b, type: 2}
   m_CullingMode: 0
@@ -387,6 +387,17 @@ MonoBehaviour:
   WaitTime: 0
   posPlayerX: 0
   posTurretX: 0
+  turretSprite: {fileID: 397797614}
+  TurretLeftUp: {fileID: 3423499998678329647, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
+  TurretLeft: {fileID: 498399931857955675, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
+  TurretUp: {fileID: -5315909519602906216, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
+  TurretDown: {fileID: 85642472185527249, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
+  TurretLeftDown: {fileID: 6898224011112788663, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
 --- !u!61 &397797617
 BoxCollider2D:
   m_ObjectHideFlags: 0

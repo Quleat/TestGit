@@ -26,6 +26,6 @@ public class TrashDeleter : MonoBehaviour
     }
     private void OnBecameInvisible()
     {
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 }
