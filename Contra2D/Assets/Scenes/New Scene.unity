@@ -398,6 +398,16 @@ MonoBehaviour:
     type: 3}
   TurretLeftDown: {fileID: 6898224011112788663, guid: ca0a4b9815940eb43a3c5b78bbf51857,
     type: 3}
+  TurretRightDown: {fileID: -4273715963761091033, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
+  TurretRight: {fileID: 7960257736227259273, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
+  TurretRightUp: {fileID: -4863872488824494384, guid: ca0a4b9815940eb43a3c5b78bbf51857,
+    type: 3}
+  x: -1
+  y: 0
+  oth1: 1
+  oth2: 1
 --- !u!61 &397797617
 BoxCollider2D:
   m_ObjectHideFlags: 0
