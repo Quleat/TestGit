@@ -28,4 +28,13 @@ public class TrashDeleter : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if(collision.gameObject.tag == "Turret")
+        {
+            Debug.Log("Hit");
+            Destroy(collision.gameObject);
+        }
+    }
 }

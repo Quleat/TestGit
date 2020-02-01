@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 public class CharacterControl : MonoBehaviour
@@ -18,6 +19,7 @@ public class CharacterControl : MonoBehaviour
     public Transform player;
     public Transform Cm;
     private IEnumerator corountine;
+    public GameObject menu;
    
     void Start()
     {
@@ -73,12 +75,15 @@ public class CharacterControl : MonoBehaviour
         //if(where == "forward") { }
         bp3.velocity = new Vector2(1f, -1f);
     }
-   void OnCollisionEnter2D(Collision2D collision)
+   void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "BulletEnemy")
         {
             Debug.Log("Hit");
+            menu.SetActive(true);
+            Time.timeScale = 0;
             Destroy(gameObject);
+            
         }
     }
 }

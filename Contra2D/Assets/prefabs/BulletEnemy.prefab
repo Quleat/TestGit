@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4389677038015356543}
   - component: {fileID: 4873888929599612805}
-  - component: {fileID: 5551003731163070004}
   - component: {fileID: 9013945072772512874}
   - component: {fileID: 5908046357941291941}
+  - component: {fileID: 3769035138514430062}
   m_Layer: 0
   m_Name: BulletEnemy
-  m_TagString: BulletEnemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,24 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5551003731163070004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797005261467611332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f1d4a6cc361a444900b76f77f5c77c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WhatIsTrashCollider:
-    serializedVersion: 2
-    m_Bits: 512
-  BulletPos: {fileID: 4389677038015356543}
-  Destroing: 0
-  EnemyBullet: 0
 --- !u!50 &9013945072772512874
 Rigidbody2D:
   serializedVersion: 4
@@ -139,3 +121,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.035
+--- !u!114 &3769035138514430062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797005261467611332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8abc338a1126e94f8a1aeffdeb74464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WhatIsTrashCollider:
+    serializedVersion: 2
+    m_Bits: 0
+  BulletPos: {fileID: 4389677038015356543}
+  Destroing: 0
+  menu: {fileID: 0}

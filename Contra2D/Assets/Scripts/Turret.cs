@@ -75,6 +75,8 @@ public class Turret : MonoBehaviour
             {
                 Debug.Log("df");
                 turretSprite.sprite = TurretRight;
+                x = 1;
+                y = 0;
 
             }// турель направо
             else if (turret.transform.position.y > player.transform.position.y && player.transform.position.x < turret.transform.position.x)
@@ -88,7 +90,7 @@ public class Turret : MonoBehaviour
                 turretSprite.sprite = TurretRightDown;
                 x = -1;
                 y = -1;
-            }
+            }// направо и вниз
             else if (player.transform.position.y - turret.transform.position.y <= 1f && player.transform.position.x < turret.transform.position.x)
             {
                 turretSprite.sprite = TurretLeftUp;
@@ -99,6 +101,8 @@ public class Turret : MonoBehaviour
             else if (player.transform.position.y - turret.transform.position.y <= 1f && player.transform.position.x > turret.transform.position.x)
             {
                 turretSprite.sprite = TurretRightUp;
+                x = 1;
+                y = 1;
             }// турель направо и вверх
             
             if (player.transform.position.x < turret.transform.position.x)
