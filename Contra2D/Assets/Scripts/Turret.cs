@@ -58,6 +58,8 @@ public class Turret : MonoBehaviour
             if (Mathf.Abs(player.transform.position.x - turret.transform.position.x) <= 0.2f && turret.transform.position.y > player.transform.position.y)
             {
                 turretSprite.sprite = TurretDown;
+                x = 0;
+                y = -1;
             } // турель вниз
             else if (Mathf.Abs(player.transform.position.x - turret.transform.position.x) <= 0.1f)
             {
@@ -73,7 +75,6 @@ public class Turret : MonoBehaviour
             }//турель налево
             else if (player.transform.position.y >= -0.2f && player.transform.position.y <= 0.2f && player.transform.position.x > turret.transform.position.x)
             {
-                Debug.Log("df");
                 turretSprite.sprite = TurretRight;
                 x = 1;
                 y = 0;
@@ -88,7 +89,7 @@ public class Turret : MonoBehaviour
             else if (turret.transform.position.y > player.transform.position.y && player.transform.position.x > turret.transform.position.x)
             {
                 turretSprite.sprite = TurretRightDown;
-                x = -1;
+                x = 1;
                 y = -1;
             }// направо и вниз
             else if (player.transform.position.y - turret.transform.position.y <= 1f && player.transform.position.x < turret.transform.position.x)
@@ -105,23 +106,7 @@ public class Turret : MonoBehaviour
                 y = 1;
             }// турель направо и вверх
             
-            if (player.transform.position.x < turret.transform.position.x)
-            {
-               
-                oth1 = 1;
-                oth2 = 1;
-                
-            }
-            if (player.transform.position.x > turret.transform.position.x + 0.5)
-            {
-             
-                oth1 = -1;
-                if (turretSprite.sprite == TurretLeftUp && turretSprite.sprite == TurretRightUp && turretSprite.sprite == TurretLeftDown) { oth2 = 1; }
-                else { oth2 = -1; }
-            }
-            x *= oth1;
-            y *= oth2;
-        }
+        } //Поворот турели во все стороны
 
     }
     private void OnBecameVisible()

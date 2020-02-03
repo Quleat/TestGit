@@ -33,7 +33,6 @@ public class TrashDeleter : MonoBehaviour
 
         if(collision.gameObject.tag == "Turret")
         {
-            Debug.Log("Hit");
             Destroy(collision.gameObject);
         }
     }

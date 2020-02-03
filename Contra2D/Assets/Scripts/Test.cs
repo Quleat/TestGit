@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Test
+public class Test : MonoBehaviour
 {
     public static bool hit = false;
 }

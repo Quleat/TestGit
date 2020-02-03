@@ -34,7 +34,6 @@ public class TrashDeleterEnemy : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Hit");
             Destroy(gameObject);
         }
     }
