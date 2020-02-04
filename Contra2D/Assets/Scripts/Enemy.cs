@@ -6,8 +6,7 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform point_1;
-    public Transform point_2;
+    
     public Transform check1, check2;
     public Rigidbody2D enemy;
     private Rigidbody2D bp;
@@ -21,27 +20,34 @@ public class Enemy : MonoBehaviour
     public GameObject Bullet;
     public float othTime = 1f;
     public GameObject Character;
-    
+    public bool active = false;
+    public Vector3 point_1;
+    public Vector3 point_2;
 
 
     void Start()
     {
-        corountine = SpawnBullets(0.8f);
-        StartCoroutine(corountine);
+        //corountine = SpawnBullets(0.8f);
+        //StartCoroutine(corountine);
+        point_1 = new Vector3(enemyPosition.position.x - 3, enemyPosition.position.y,1);
+        point_2 = new Vector3(enemyPosition.position.x + 3, enemyPosition.position.y,1);
     }
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.transform.position.x <= point_1.position.x) { OnRight = true; }
-        if(gameObject.transform.position.x >= point_2.position.x) { OnRight = false; }
-        MoveEnemy();
-        GameObject bullets = GameObject.FindGameObjectWithTag("Bullet");
-        if (othTime <= 0 && !Test.hit)
+        if (active)
         {
-            
-            othTime = 1;
+            if (gameObject.transform.position.x <= point_1.x) { OnRight = true; }
+            if (gameObject.transform.position.x >= point_2.x) { OnRight = false; }
+            MoveEnemy();
+            GameObject bullets = GameObject.FindGameObjectWithTag("Bullet");
+            if (othTime <= 0 && !Test.hit)
+            {
+
+                othTime = 1;
+            }
+            othTime -= Time.deltaTime;
         }
-        othTime -= Time.deltaTime;
         
         
     }
@@ -57,7 +63,7 @@ public class Enemy : MonoBehaviour
     {     
             //seePlayerOnTheLeft = Physics2D.OverlapCircle(check1.position, 0, WhatIsPlayer);
             //seePlayerOnTheRight = Physics2D.OverlapCircle(check2.position, 0, WhatIsPlayer);
-            if (Character.transform.position.x < transform.position.x && !OnRight)
+            if (Character.transform.position.x < transform.position.x && !OnRight && active)
             {
                 GameObject BulletPrefab = Instantiate(Bullet) as GameObject;
                 Test.hit = true;
@@ -94,5 +100,9 @@ public class Enemy : MonoBehaviour
             Debug.Log("Hit");
             Destroy(gameObject);
         }
+    }
+    private void OnBecameVisible()
+    {
+        active = true;
     }
 }

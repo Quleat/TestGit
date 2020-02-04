@@ -27,6 +27,13 @@ public class CharacterControl : MonoBehaviour
     public bool OnGround;
     public Transform check2;
     public float VelocityX = 0;
+    public SpriteRenderer CharacterSprite;
+    public Sprite LookingRight;
+    public Sprite LookingRightUp;
+    public Sprite LookingRightDown;
+    public Sprite LookingUp;
+    private float x;
+    private float y;
 
     void Start()
     {
@@ -38,11 +45,7 @@ public class CharacterControl : MonoBehaviour
         inputx = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(inputx, Character.velocity.y) * Time.deltaTime * speed;
         Character.velocity = movement;
-        if (Input.GetKeyDown(KeyCode.W) && OnGround)
-        {
-            Character.AddForce(new Vector2(0, 600));
-            CharacterAnim.SetBool("Jumping", true);
-        }
+        
         isWater = Physics2D.OverlapCircle(check.position, 0, WhatIsWater);
         OnGround = Physics2D.OverlapCircle(check.position, 0, WhatIsPlatform);
         Collider2D[] platformUp = Physics2D.OverlapCircleAll(check2.position, 0, WhatIsPlatform);
@@ -55,7 +58,7 @@ public class CharacterControl : MonoBehaviour
         foreach (Collider2D item in platformDown)
         {
             BoxCollider2D bc = item.GetComponent<BoxCollider2D>();
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
             {
                 bc.isTrigger = true;
             }
@@ -75,6 +78,7 @@ public class CharacterControl : MonoBehaviour
         {
             CharacterAnim.SetBool("Jumping", false);
         }
+        Looking();
 
         
     }
@@ -120,6 +124,58 @@ public class CharacterControl : MonoBehaviour
             Time.timeScale = 0;
             Destroy(gameObject);
             
+        }
+    }
+    void Looking()
+    {
+        if(Input.GetKeyDown(KeyCode.D) && Input.GetKeyDown(KeyCode.S))
+        {
+            CharacterSprite.sprite = LookingRightDown;
+            CharacterSprite.flipX = false;
+            x = 1;
+            y = -1;
+            corountine = SpawnsBullets(0.3f);
+            StartCoroutine(corountine);
+        } //направо и вниз
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            CharacterSprite.sprite = LookingRight;
+            CharacterSprite.flipX = false;
+            x = 1;
+            y = 0;
+        } // направо
+        if (Input.GetKeyDown(KeyCode.D) && Input.GetKeyDown(KeyCode.W))
+        {
+            CharacterSprite.sprite = LookingRightUp;
+            CharacterSprite.flipX = false;
+            x = 1;
+            y = 1;
+        } // направо и вверх
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            CharacterSprite.sprite = LookingRight;
+            CharacterSprite.flipX = true;
+            x = -1;
+            y = 0;
+        } // налево
+        if (Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.W))
+        {
+            CharacterSprite.sprite = LookingRightUp;
+            CharacterSprite.flipX = true;
+            x = -1;
+            y = 1;
+        } // налево и вверх
+        if (Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.S))
+        {
+            CharacterSprite.sprite = LookingRightDown;
+            CharacterSprite.flipX = true;
+            x = -1;
+            y = -1;
+        } // налево и вниз
+        if (Input.GetKeyDown(KeyCode.Space) && OnGround)
+        {
+            Character.AddForce(new Vector2(0, 600));
+            CharacterAnim.SetBool("Jumping", true);
         }
     }
 }
