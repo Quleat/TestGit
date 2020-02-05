@@ -62,13 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\RestartGame.cs" />
     <Compile Include="Assets\Scripts\CharacterControl.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\OneWayPlatform.cs" />
+    <Compile Include="Assets\Scripts\RestartGame.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\TrashDeleter.cs" />
     <Compile Include="Assets\Scripts\TrashDeleterEnemy.cs" />
+    <Compile Include="Assets\Scripts\Trigger.cs" />
     <Compile Include="Assets\Scripts\Turret.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/User28/Documents/GitHub/TestGit/Contra2D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

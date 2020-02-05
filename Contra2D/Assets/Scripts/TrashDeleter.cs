@@ -22,7 +22,8 @@ public class TrashDeleter : MonoBehaviour
         //{
             //Destroy(this.gameObject);
             //Test.hit = false;
-        //}
+        
+        
     }
     private void OnBecameInvisible()
     {
@@ -32,6 +33,11 @@ public class TrashDeleter : MonoBehaviour
     {
 
         if(collision.gameObject.tag == "Turret")
+        {
+            Debug.Log("Hit");
+            //Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "Enemy")
         {
             Destroy(collision.gameObject);
         }

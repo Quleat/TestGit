@@ -27,10 +27,11 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        //corountine = SpawnBullets(0.8f);
-        //StartCoroutine(corountine);
+        corountine = SpawnBullets(0.8f);
+        StartCoroutine(corountine);
         point_1 = new Vector3(enemyPosition.position.x - 3, enemyPosition.position.y,1);
         point_2 = new Vector3(enemyPosition.position.x + 3, enemyPosition.position.y,1);
+        Character = GameObject.FindGameObjectWithTag("Player");
     }
     // Update is called once per frame
     void Update()
