@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 2097610751418113791}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270,8 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6c6a46ef92b784eb80417fb71b6e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point_1: {fileID: 0}
-  point_2: {fileID: 0}
   check1: {fileID: 2097610750789525172}
   check2: {fileID: 2097610750065664409}
   enemy: {fileID: 2097610751418113789}
@@ -285,6 +283,9 @@ MonoBehaviour:
   Bullet: {fileID: 1797005261467611332, guid: ec23b9e2991debf4f838628510d1f35a, type: 3}
   othTime: 1
   Character: {fileID: 0}
+  active: 0
+  point_1: {x: 0, y: 0, z: 0}
+  point_2: {x: 0, y: 0, z: 0}
 --- !u!50 &2097610751418113789
 Rigidbody2D:
   serializedVersion: 4

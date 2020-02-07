@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "BulletEnemy")
+        if (collision.gameObject.tag == "Bullet")
         {
             Debug.Log("Hit");
             Destroy(gameObject);
