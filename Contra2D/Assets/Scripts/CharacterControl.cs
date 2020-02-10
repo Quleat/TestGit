@@ -36,6 +36,8 @@ public class CharacterControl : MonoBehaviour
     private float y;
     bool RunningAnim = false;
 
+    public GameObject[] Lives = new GameObject[3];
+
     void Start()
     {
         Character = GetComponent<Rigidbody2D>();
@@ -86,12 +88,19 @@ public class CharacterControl : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "BulletEnemy")
-        {
-            Debug.Log("Hit");
-            menu.SetActive(true);
-            Time.timeScale = 0;
-            Destroy(gameObject);
-
+        {          
+            if(Test.RemainLives >= 0)
+            {
+                Destroy(Lives[Test.RemainLives]);
+                Test.RemainLives--;
+                Test.Respawn();
+            } else
+            {
+                Debug.Log("Hit");
+                menu.SetActive(true);
+                Destroy(gameObject);
+                Time.timeScale = 0;               
+            }        
         }
     }
     void Looking()
@@ -158,11 +167,7 @@ public class CharacterControl : MonoBehaviour
                 x = -1;
                 y = -1;
             } // налево и вниз
-            else if (Input.GetKeyDown(KeyCode.Space) && OnGround)
-            {
-                Character.AddForce(new Vector2(0, 600));
-                CharacterAnim.SetBool("Jumping", true);
-            }
+            
             
         }
         else
@@ -198,7 +203,7 @@ public class CharacterControl : MonoBehaviour
         foreach (Collider2D item in platformDown)
         {
             BoxCollider2D bc = item.GetComponent<BoxCollider2D>();
-            if (Input.GetKeyDown(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 bc.isTrigger = true;
             }
@@ -206,6 +211,11 @@ public class CharacterControl : MonoBehaviour
             {
                 bc.isTrigger = false;
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && OnGround)
+        {
+            Character.AddForce(new Vector2(0, 600));
+            CharacterAnim.SetBool("Jumping", true);
         }
         if (OnGround)
         {
