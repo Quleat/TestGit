@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemy;
+
     private IEnumerator corountine;
+
     public float WaitTime = 5f;
     public float Waiting = 5f;
+
     private bool started = false;
 
     void Start()

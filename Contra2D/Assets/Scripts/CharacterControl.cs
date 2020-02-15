@@ -11,36 +11,48 @@ public class CharacterControl : MonoBehaviour
     private Rigidbody2D bp1;
     private Rigidbody2D bp2;
     private Rigidbody2D bp3;
-    public float inputx;
-    public float speed = 50f;
-    public float thrust = 100f;
+
     public GameObject Bullet;
+    public GameObject menu;
+    public GameObject Player;
+
     public Transform player;
     public Transform Cm;
+    public Transform check2;
+    public Transform check;
+
     private IEnumerator corountine;
-    public GameObject menu;
+
     public Animator CharacterAnim;
+
     public LayerMask WhatIsWater;
     public LayerMask WhatIsPlatform;
-    public bool isWater;
-    public Transform check;
-    public bool OnGround;
-    public Transform check2;
-    public float VelocityX = 0;
+
     public SpriteRenderer CharacterSprite;
+
     public Sprite LookingRight;
     public Sprite LookingRightUp;
     public Sprite LookingRightDown;
     public Sprite LookingUp;
+
     private float x;
     private float y;
+    private float inv = 0f;
+    public float VelocityX = 0;
+    public float inputx;
+    public float speed = 50f;
+    public float thrust = 100f;
+
     bool RunningAnim = false;
+    public bool OnGround;
+    public bool isWater;
 
     public GameObject[] Lives = new GameObject[3];
 
+    CheckPoint cp = new CheckPoint();
     void Start()
     {
-        Character = GetComponent<Rigidbody2D>();
+        Character = GetComponent<Rigidbody2D>();       
     }
     void Update()
     {
@@ -53,8 +65,7 @@ public class CharacterControl : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.F)) { StopCoroutine(corountine); }
         Moving();
         Looking();
-
-
+        inv -= Time.deltaTime;
     }
     IEnumerator SpawnsBullets(float times)
     {
@@ -63,7 +74,7 @@ public class CharacterControl : MonoBehaviour
             yield return new WaitForSeconds(times);
             SpawnBullet();
         }
-    }
+    } 
     void SpawnBullet()
     {
         GameObject Bulletprefab1 = Instantiate(Bullet) as GameObject;
@@ -84,25 +95,35 @@ public class CharacterControl : MonoBehaviour
         bp3 = Bulletprefab3.GetComponent<Rigidbody2D>();
         //if(where == "forward") { }
         bp3.velocity = new Vector2(1f, -1f);
-    }
+    } // Спавн пуль
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "BulletEnemy")
+        if (collision.gameObject.tag == "BulletEnemy" && inv <= 0)
         {          
             if(Test.RemainLives >= 0)
             {
-                Destroy(Lives[Test.RemainLives]);
+                Destroy(Lives[Test.RemainLives - 1]);
                 Test.RemainLives--;
-                Test.Respawn();
+                cp.Respawn();
+                if (Test.PassedCheckpoint) 
+                {
+                    Cm.position = new Vector3(0.5f, 0.51f, -0.01f);
+                }else
+                {
+                    Cm.position = new Vector3(-7.79f, 0.51f, -10);
+                }
+               
+                Destroy(gameObject);
             } else
             {
                 Debug.Log("Hit");
                 menu.SetActive(true);
                 Destroy(gameObject);
                 Time.timeScale = 0;               
-            }        
+            }
+            inv = 4f;
         }
-    }
+    } // Реакция на пулю
     void Looking()
     {
         if (Input.GetKey(KeyCode.D))
@@ -176,7 +197,7 @@ public class CharacterControl : MonoBehaviour
             CharacterAnim.SetBool("LookingRightUpRunning", false);
             CharacterAnim.SetBool("LookingRightUp", false);
         }
-    }
+    } // Анимации поврота во все стороны
     void Moving()
     {
         if (Input.GetKey(KeyCode.C)) 
@@ -221,5 +242,6 @@ public class CharacterControl : MonoBehaviour
         {
             CharacterAnim.SetBool("Jumping", false);
         }
-    }
+    } // Перемещения в пространстве
+    
 }

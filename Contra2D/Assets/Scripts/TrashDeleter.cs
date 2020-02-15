@@ -37,7 +37,11 @@ public class TrashDeleter : MonoBehaviour
             Debug.Log("Hit");
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.tag == "Enemy")
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            Destroy(collision.gameObject);
+        }
+        else if(collision.gameObject.tag == "Runner")
         {
             Destroy(collision.gameObject);
         }

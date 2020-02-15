@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4087354953592589885}
   m_Layer: 0
   m_Name: Runner
-  m_TagString: BulletEnemy
+  m_TagString: Runner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   ThisRunner: {fileID: 5669717729616462815}
   Check: {fileID: 5018313323072980826}
   Check2: {fileID: 7447200279396596614}
+  Wall: {fileID: 0}
   WhatIsPlatform:
     serializedVersion: 2
     m_Bits: 256
@@ -155,7 +156,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &4087354953592589885
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ TagManager:
   - BulletEnemy
   - Turret
   - Enemy
+  - Wall
+  - Runner
   layers:
   - Default
   - TransparentFX

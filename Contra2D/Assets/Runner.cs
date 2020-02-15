@@ -8,6 +8,7 @@ public class Runner : MonoBehaviour
     public GameObject ThisRunner;
     public GameObject Check;
     public GameObject Check2;
+    public Collider2D Wall;
 
     public LayerMask WhatIsPlatform;
 
@@ -18,6 +19,8 @@ public class Runner : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         RunnerRB = GetComponent<Rigidbody2D>();
+        GameObject Wall = GameObject.FindGameObjectWithTag("Wall");
+        Physics2D.IgnoreCollision(Wall.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
     }
     void Update()
     {
@@ -44,4 +47,6 @@ public class Runner : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+    
+
 }

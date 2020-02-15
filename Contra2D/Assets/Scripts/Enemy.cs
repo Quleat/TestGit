@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     public Vector3 point_1;
     public Vector3 point_2;
 
+    Test Test = new Test();
+
 
     void Start()
     {
