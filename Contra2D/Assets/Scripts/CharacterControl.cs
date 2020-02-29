@@ -12,9 +12,12 @@ public class CharacterControl : MonoBehaviour
     private Rigidbody2D bp2;
     private Rigidbody2D bp3;
 
+    private BoxCollider2D CharacterCollider;
+
     public GameObject Bullet;
     public GameObject menu;
     public GameObject Player;
+    public GameObject[] Lives = new GameObject[3];
 
     public Transform player;
     public Transform Cm;
@@ -35,38 +38,65 @@ public class CharacterControl : MonoBehaviour
     public Sprite LookingRightDown;
     public Sprite LookingUp;
 
-    private float x;
-    private float y;
+    public float x;
+    public float y;
+    [SerializeField] private float bulletSpeedX = 2;
+    [SerializeField] private float bulletSpeedY = 2;
     private float inv = 0f;
-    public float VelocityX = 0;
+    public float VelocitY = 0;
     public float inputx;
     public float speed = 50f;
     public float thrust = 100f;
 
-    bool RunningAnim = false;
     public bool OnGround;
+    public bool OnWater;
+    public bool Jump = false;
     public bool isWater;
+    public bool KeyRight;
+    public bool KeyRightUp;
+    public bool KeyLeft;
+    public bool KeyUp;
+    public bool KeyDown;
+    public bool KeyJump;
+    public bool KeyJumpOff;
+    public bool KeyActivation;
+    public bool Shooting = false;
 
-    public GameObject[] Lives = new GameObject[3];
-
-    CheckPoint cp = new CheckPoint();
+    CheckPoint cp;
     void Start()
     {
-        Character = GetComponent<Rigidbody2D>();       
+        GameObject _CheckObject = GameObject.FindGameObjectWithTag("CheckPoint");
+        Character = GetComponent<Rigidbody2D>();
+        CharacterCollider = GetComponent<BoxCollider2D>();
+        cp = _CheckObject.GetComponent<CheckPoint>();
+        Cm = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        menu = GameObject.FindGameObjectWithTag("menu");
+        Lives[0] = GameObject.FindGameObjectWithTag("1live");
+        Lives[1] = GameObject.FindGameObjectWithTag("2live");
+        Lives[2] = GameObject.FindGameObjectWithTag("3live");
+        corountine = SpawnsBullets(0.3f);
     }
     void Update()
     {
-        VelocityX = Character.velocity.x;
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            corountine = SpawnsBullets(0.3f);
-            StartCoroutine(corountine);
-        }
-        if (Input.GetKeyUp(KeyCode.F)) { StopCoroutine(corountine); }
-        Moving();
+        ForDebug();
+        GetInput();
         Looking();
+        if (KeyActivation && !Shooting) // Активация стрельбы
+        {
+            StartCoroutine(corountine);
+            Shooting = true;
+        }
+        if (!KeyActivation && Shooting)
+        {
+            StopCoroutine(corountine);
+            Shooting = false;
+        }// Деактивация стрельбы
         inv -= Time.deltaTime;
     }
+    private void FixedUpdate()
+    {
+        Moving();
+    } // Апдейт для физики(перемещения персонажа в частности)
     IEnumerator SpawnsBullets(float times)
     {
         while (true)
@@ -74,33 +104,20 @@ public class CharacterControl : MonoBehaviour
             yield return new WaitForSeconds(times);
             SpawnBullet();
         }
-    } 
+    }  // Коротина для создания пуль ( Переделать, пули спавняться после каждого нажатие клавиши)
     void SpawnBullet()
     {
         GameObject Bulletprefab1 = Instantiate(Bullet) as GameObject;
         Bulletprefab1.transform.position = player.position;
         bp1 = Bulletprefab1.GetComponent<Rigidbody2D>();
         //if(where == "forward") { }
-        bp1.velocity = new Vector2(1f, 1f);
-
-
-        GameObject Bulletprefab2 = Instantiate(Bullet) as GameObject;
-        Bulletprefab2.transform.position = player.position;
-        bp2 = Bulletprefab2.GetComponent<Rigidbody2D>();
-        //if(where == "forward") { }
-        bp2.velocity = new Vector2(1f, 0);
-
-        GameObject Bulletprefab3 = Instantiate(Bullet) as GameObject;
-        Bulletprefab3.transform.position = player.position;
-        bp3 = Bulletprefab3.GetComponent<Rigidbody2D>();
-        //if(where == "forward") { }
-        bp3.velocity = new Vector2(1f, -1f);
+        bp1.velocity = new Vector2(x, y);
     } // Спавн пуль
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "BulletEnemy" && inv <= 0)
         {          
-            if(Test.RemainLives >= 0)
+            try
             {
                 Destroy(Lives[Test.RemainLives - 1]);
                 Test.RemainLives--;
@@ -112,90 +129,82 @@ public class CharacterControl : MonoBehaviour
                 {
                     Cm.position = new Vector3(-7.79f, 0.51f, -10);
                 }
-               
                 Destroy(gameObject);
-            } else
+            }
+            catch
             {
                 Debug.Log("Hit");
-                menu.SetActive(true);
+                cp.menu.SetActive(true);
                 Destroy(gameObject);
-                Time.timeScale = 0;               
+                Time.timeScale = 0;
             }
             inv = 4f;
         }
     } // Реакция на пулю
     void Looking()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (KeyLeft)
         {
-            RunningAnim = true;
-            if (Input.GetKey(KeyCode.Keypad9))
-            {
-                CharacterAnim.SetBool("LookingRightUpRunning", true);
-            }
+            KeyRight = true;
         }
-        else
+        if(KeyUp && !KeyRight && !KeyLeft)
         {
-            RunningAnim = false;
-            CharacterAnim.SetBool("LookingRightUpRunning", false);
+            CharacterAnim.SetBool("Right", false);
+            CharacterAnim.SetBool("RightDown", false);
+            CharacterAnim.SetBool("RightUp", false);
+            CharacterAnim.SetBool("Stay", false);
+            CharacterAnim.SetBool("Up", true);
         }
-        
-        if (!RunningAnim)
+        else if (KeyRight && KeyUp)
         {
-            if (Input.GetKeyDown(KeyCode.D) && Input.GetKeyDown(KeyCode.S))
-            {
-                CharacterSprite.sprite = LookingRightDown;
-                CharacterSprite.flipX = false;
-                x = 1;
-                y = -1;
-                corountine = SpawnsBullets(0.3f);
-                StartCoroutine(corountine);
-            } //направо и вниз
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                CharacterSprite.sprite = LookingRight;
-                CharacterSprite.flipX = false;
-                x = 1;
-                y = 0;
-            } // направо
-            else if (Input.GetKey(KeyCode.Keypad9))
-            {
-                //CharacterSprite.sprite = LookingRightUp;
-                CharacterSprite.flipX = false;
-                x = 1;
-                y = 1;
-                CharacterAnim.SetBool("LookingRightUp", true);
-            }
-            // направо и вверх
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                CharacterSprite.sprite = LookingRight;
-                CharacterSprite.flipX = true;
-                x = -1;
-                y = 0;
-            } // налево
-            else if (Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.W))
-            {
-                CharacterSprite.sprite = LookingRightUp;
-                CharacterSprite.flipX = true;
-                x = -1;
-                y = 1;
-            } // налево и вверх
-            else if (Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.S))
-            {
-                CharacterSprite.sprite = LookingRightDown;
-                CharacterSprite.flipX = true;
-                x = -1;
-                y = -1;
-            } // налево и вниз
-            
-            
-        }
-        else
+            CharacterAnim.SetBool("Right", false);
+            CharacterAnim.SetBool("RightDown", false);
+            CharacterAnim.SetBool("RightUp", true);
+            CharacterAnim.SetBool("Stay", false);
+            CharacterAnim.SetBool("Up", false);
+            x = bulletSpeedX;
+            y = bulletSpeedY * 1;
+        } // Стрельба вверх и вправо
+        else if(KeyRight && KeyDown)
         {
-            //Debug.Log("StopAnimation");
-            CharacterAnim.SetBool("LookingRightUpRunning", false);
-            CharacterAnim.SetBool("LookingRightUp", false);
+            CharacterAnim.SetBool("Right", false);
+            CharacterAnim.SetBool("RightDown", true);
+            CharacterAnim.SetBool("RightUp", false);
+            CharacterAnim.SetBool("Stay", false);
+            CharacterAnim.SetBool("Up", false);
+            x = bulletSpeedX;
+            y = bulletSpeedY * -1;
+        } // Стрельба вниз и вправо
+        else if(KeyRight)
+        {
+            CharacterAnim.SetBool("Right", true);
+            CharacterAnim.SetBool("RightDown", false);
+            CharacterAnim.SetBool("RightUp", false);
+            CharacterAnim.SetBool("Stay", false);
+            CharacterAnim.SetBool("Up", false);
+            x = bulletSpeedX;
+            y = 0;
+        } // Стрельба вправо
+        else if(!KeyRight && !KeyDown && !KeyLeft)
+        {
+            CharacterAnim.SetBool("Stay", true);
+            CharacterAnim.SetBool("Right", false);
+            CharacterAnim.SetBool("RightDown", false);
+            CharacterAnim.SetBool("RightUp", false);
+            CharacterAnim.SetBool("Up", false);
+            x = bulletSpeedX;
+            y = 0;
+        } // Анимация idle
+        if (KeyLeft)
+        {
+            KeyRight = false;
+            CharacterSprite.flipX = true;
+            x *= -1;
+        }//Для поворота анимации и стрельбы налево
+        else if (KeyRight)
+        {
+            CharacterSprite.flipX = false;
+            x *= 1;
         }
     } // Анимации поврота во все стороны
     void Moving()
@@ -209,22 +218,21 @@ public class CharacterControl : MonoBehaviour
             inputx = Input.GetAxis("Horizontal");
         }
         Vector2 movement = new Vector2(inputx, Character.velocity.y) * Time.deltaTime * speed;
-        
         Character.velocity = movement;
         if ((player.position.x) >= -7.7 && player.position.x > Cm.position.x) { Cm.transform.position = new Vector3(player.position.x, Cm.transform.position.y, -1); }
         isWater = Physics2D.OverlapCircle(check.position, 0, WhatIsWater);
         OnGround = Physics2D.OverlapCircle(check.position, 0, WhatIsPlatform);
         Collider2D[] platformUp = Physics2D.OverlapCircleAll(check2.position, 0, WhatIsPlatform);
-        foreach (Collider2D item in platformUp)
+        foreach (Collider2D item in platformUp) // Нахождение платформы над игроком
         {
             BoxCollider2D bc = item.GetComponent<BoxCollider2D>();
             bc.isTrigger = true;
         }
         Collider2D[] platformDown = Physics2D.OverlapCircleAll(check.position, 0, WhatIsPlatform);
-        foreach (Collider2D item in platformDown)
+        foreach (Collider2D item in platformDown) // Нахождение платформы под игроком
         {
             BoxCollider2D bc = item.GetComponent<BoxCollider2D>();
-            if (Input.GetKeyDown(KeyCode.S))
+            if (KeyJumpOff)
             {
                 bc.isTrigger = true;
             }
@@ -233,15 +241,50 @@ public class CharacterControl : MonoBehaviour
                 bc.isTrigger = false;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && OnGround)
+        if (KeyJump && OnGround && !KeyJumpOff)
         {
-            Character.AddForce(new Vector2(0, 600));
+            Character.AddForce(new Vector2(0, 250));            
             CharacterAnim.SetBool("Jumping", true);
+            Jump = true;
         }
-        if (OnGround)
-        {
+        else if(OnGround && Jump)
+        { 
             CharacterAnim.SetBool("Jumping", false);
+            Jump = false;
         }
+        Character.velocity = Vector3.ClampMagnitude(Character.velocity, 4.8f);
     } // Перемещения в пространстве
-    
+    void MovingOnWater()
+    {
+        if(OnWater)
+        {
+            
+        }
+    }
+    void GetInput()
+    {
+        KeyRight = Input.GetKey(KeyCode.D);
+        KeyLeft = Input.GetKey(KeyCode.A);
+        KeyDown = Input.GetKey(KeyCode.S);
+        KeyUp = Input.GetKey(KeyCode.W);
+        KeyJump = Input.GetKey(KeyCode.Space);
+        KeyJumpOff = Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.Space);
+        KeyActivation = Input.GetKey(KeyCode.E);
+        KeyRightUp = Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.E);
+    } // Получение данных с клавиатуры
+    void ForDebug()
+    {
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            Time.timeScale = 0.5f;
+        }
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            Time.timeScale = 0.25f;
+        }
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            Time.timeScale = 1f;
+        }
+    }    // Не влияющие на игровой процесс, только для дебага
 }

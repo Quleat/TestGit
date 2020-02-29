@@ -9,8 +9,6 @@ public class Turret : MonoBehaviour
     public GameObject Bullet;
     public Transform turret;
     public float WaitTime;
-    private IEnumerator corountine;
-    private bool started = false;
     public float posPlayerX;
     public float posTurretX;
     public SpriteRenderer turretSprite;
@@ -52,55 +50,70 @@ public class Turret : MonoBehaviour
     }
     private void Looking()
     {
-        if (Mathf.Abs(player.transform.position.x - turret.transform.position.x) <= 0.2f && turret.transform.position.y > player.transform.position.y)
+        try
         {
-            turretSprite.sprite = TurretDown;
-            x = 0;
-            y = -1;
-        } // турель вниз
-        else if (Mathf.Abs(player.transform.position.x - turret.transform.position.x) <= 0.1f)
-        {
-            turretSprite.sprite = TurretUp;
-            x = 0;
-            y = 1;
-        }// турель вверх
-        else if (Mathf.Abs(player.transform.position.y - turret.transform.position.y) <= 0.1f && player.transform.position.x < turret.transform.position.x)
-        {
-            turretSprite.sprite = TurretLeft;
-            x = -1;
-            y = 0;
-        }//турель налево
-        else if (player.transform.position.y >= -0.2f && player.transform.position.y <= 0.2f && player.transform.position.x > turret.transform.position.x)
-        {
-            turretSprite.sprite = TurretRight;
-            x = 1;
-            y = 0;
+            if (Mathf.Abs(player.transform.position.x - turret.transform.position.x) <= 0.2f && turret.transform.position.y > player.transform.position.y)
+            {
+                turretSprite.sprite = TurretDown;
+                x = 0;
+                y = -1;
+            } // турель вниз
+            else if (Mathf.Abs(player.transform.position.x - turret.transform.position.x) <= 0.1f)
+            {
+                turretSprite.sprite = TurretUp;
+                x = 0;
+                y = 1;
+            }// турель вверх
+            else if (Mathf.Abs(player.transform.position.y - turret.transform.position.y) <= 0.1f && player.transform.position.x < turret.transform.position.x)
+            {
+                turretSprite.sprite = TurretLeft;
+                x = -1;
+                y = 0;
+            }//турель налево
+            else if (player.transform.position.y >= -0.2f && player.transform.position.y <= 0.2f && player.transform.position.x > turret.transform.position.x)
+            {
+                turretSprite.sprite = TurretRight;
+                x = 1;
+                y = 0;
 
-        }// турель направо
-        else if (turret.transform.position.y > player.transform.position.y && player.transform.position.x < turret.transform.position.x)
-        {
-            turretSprite.sprite = TurretLeftDown;
-            x = -1;
-            y = -1;
-        }// турель налево и вниз
-        else if (turret.transform.position.y > player.transform.position.y && player.transform.position.x > turret.transform.position.x)
-        {
-            turretSprite.sprite = TurretRightDown;
-            x = 1;
-            y = -1;
-        }// направо и вниз
-        else if (player.transform.position.y - turret.transform.position.y <= 1f && player.transform.position.x < turret.transform.position.x)
-        {
-            turretSprite.sprite = TurretLeftUp;
-            x = -1;
-            y = 1;
+            }// турель направо
+            else if (turret.transform.position.y > player.transform.position.y && player.transform.position.x < turret.transform.position.x)
+            {
+                turretSprite.sprite = TurretLeftDown;
+                x = -1;
+                y = -1;
+            }// турель налево и вниз
+            else if (turret.transform.position.y > player.transform.position.y && player.transform.position.x > turret.transform.position.x)
+            {
+                turretSprite.sprite = TurretRightDown;
+                x = 1;
+                y = -1;
+            }// направо и вниз
+            else if (player.transform.position.y - turret.transform.position.y <= 1f && player.transform.position.x < turret.transform.position.x)
+            {
+                turretSprite.sprite = TurretLeftUp;
+                x = -1;
+                y = 1;
 
-        }// турель налево и вверх
-        else if (player.transform.position.y - turret.transform.position.y <= 1f && player.transform.position.x > turret.transform.position.x)
+            }// турель налево и вверх
+            else if (player.transform.position.y - turret.transform.position.y <= 1f && player.transform.position.x > turret.transform.position.x)
+            {
+                turretSprite.sprite = TurretRightUp;
+                x = 1;
+                y = 1;
+            }
+        }
+        catch
         {
-            turretSprite.sprite = TurretRightUp;
-            x = 1;
-            y = 1;
+            try
+            {
+                player = (GameObject.FindGameObjectWithTag("Player").transform);
+                Debug.Log("Переопределине игрока");
+            }
+            catch
+            {
+                Debug.Log("Игрок Уничтожен");
+            }
         }
     }
 }

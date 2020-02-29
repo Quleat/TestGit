@@ -23,10 +23,6 @@ public class Enemy : MonoBehaviour
     public bool active = false;
     public Vector3 point_1;
     public Vector3 point_2;
-
-    Test Test = new Test();
-
-
     void Start()
     {
         corountine = SpawnBullets(0.8f);
@@ -35,7 +31,6 @@ public class Enemy : MonoBehaviour
         point_2 = new Vector3(enemyPosition.position.x + 3, enemyPosition.position.y,1);
         Character = GameObject.FindGameObjectWithTag("Player");
     }
-    // Update is called once per frame
     void Update()
     {
         if (active)
@@ -46,7 +41,6 @@ public class Enemy : MonoBehaviour
             GameObject bullets = GameObject.FindGameObjectWithTag("Bullet");
             if (othTime <= 0 && !Test.hit)
             {
-
                 othTime = 1;
             }
             othTime -= Time.deltaTime;
@@ -100,7 +94,6 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            Debug.Log("Hit");
             Destroy(gameObject);
         }
     }

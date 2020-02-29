@@ -126,7 +126,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2235616051291315810}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1ae5276bccedd4a4199dca4746a6ac7e, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -219,12 +219,15 @@ MonoBehaviour:
     type: 3}
   LookingUp: {fileID: 1963109353538947618, guid: ff2b7cb3da96ddc4db675ae295d32f0d,
     type: 3}
+  bulletSpeedX: 2
+  bulletSpeedY: 2
   VelocityX: 0
   inputx: 0
   speed: 50
   thrust: 100
   OnGround: 0
   isWater: 0
+  KeyRight: 0
   Lives:
   - {fileID: 0}
   - {fileID: 0}

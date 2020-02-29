@@ -10,6 +10,11 @@ TagManager:
   - Enemy
   - Wall
   - Runner
+  - CheckPoint
+  - menu
+  - 1live
+  - 2live
+  - 3live
   layers:
   - Default
   - TransparentFX
