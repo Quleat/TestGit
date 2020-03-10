@@ -7,6 +7,8 @@ using System;
 
 public class CharacterControl : MonoBehaviour
 {
+    public delegate void Shoot();
+
     public Rigidbody2D Character;
     private Rigidbody2D bp1;
     private Rigidbody2D bp2;
@@ -102,10 +104,10 @@ public class CharacterControl : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(times);
-            SpawnBullet();
+            Shoot();
         }
     }  // Коротина для создания пуль ( Переделать, пули спавняться после каждого нажатие клавиши)
-    void SpawnBullet()
+    void ShootingWithStandard()
     {
         GameObject Bulletprefab1 = Instantiate(Bullet) as GameObject;
         Bulletprefab1.transform.position = player.position;
@@ -287,4 +289,21 @@ public class CharacterControl : MonoBehaviour
             Time.timeScale = 1f;
         }
     }    // Не влияющие на игровой процесс, только для дебага
+    void ShootingSWeapon()
+    {
+        GameObject Bulletprefab1 = Instantiate(Bullet) as GameObject;
+        Bulletprefab1.transform.position = player.position;
+        bp1 = Bulletprefab1.GetComponent<Rigidbody2D>();
+        bp1.velocity = new Vector2(x, y + 1);
+
+        GameObject Bulletprefab1 = Instantiate(Bullet) as GameObject;
+        Bulletprefab1.transform.position = player.position;
+        bp1 = Bulletprefab1.GetComponent<Rigidbody2D>();
+        bp1.velocity = new Vector2(x, y);
+
+        GameObject Bulletprefab1 = Instantiate(Bullet) as GameObject;
+        Bulletprefab1.transform.position = player.position;
+        bp1 = Bulletprefab1.GetComponent<Rigidbody2D>();
+        bp1.velocity = new Vector2(x, y - 1);
+    }
 }
