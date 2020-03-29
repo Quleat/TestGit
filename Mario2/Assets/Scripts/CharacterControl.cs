@@ -7,10 +7,10 @@ public class CharacterControl : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    public float inputx;
-    public float speed = 50f;
-    public float jumpForce = 5f;
-    public Vector3 movement;
+    private float inputx;
+    private float speed = 1f;
+    private float jumpForce = 5f;
+    private Vector3 movement;
 
     public bool onGround;
     public bool onAir;
@@ -26,40 +26,49 @@ public class CharacterControl : MonoBehaviour
     public LayerMask _whatIsGround;
     public LayerMask _whatIsBrick;
 
-    public Text _pointCount;
-    public float pointCount;
+    private Transform cm;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        cm = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
     void FixedUpdate()
     {
         GetInput();
         Move();
-        Jump();
+        CheckAndJump();
     }
     private void Move()
     {
-        float inputX = Input.GetAxis("Horizontal");
+        float inputX = Input.GetAxis("Horizontal"); // Перемещения песонажа по оси Х
         movement = new Vector2(inputX, rb.velocity.y) * speed;
         rb.velocity = movement;
+
+        if(rb.velocity.x > 0 && transform.position.x > cm.position.x)   // Пермещения камеры
+        {
+           cm.position = new Vector3(transform.position.x, cm.position.y, transform.position.z - 10); 
+        }
     }
-    private void Jump()
+    private void CheckAndJump()
     {
         onGround = Physics2D.OverlapCircle(new Vector2(checkGround.position.x, checkGround.position.y), 0, _whatIsGround);
         onAir = Physics2D.OverlapCircle(new Vector2(checkAir.position.x, checkAir.position.y), 0, _whatIsBrick);
         if(onAir)
         {
-            GameObject _gameObjUp = Physics2D.OverlapCircle(new Vector2(checkGround.position.x, checkGround.position.y), 0, _whatIsGround).gameObject;
-            _gameObjUp.GetComponent<RandomBrick>().activation();
+            GameObject _gameObjUp = Physics2D.OverlapCircle(new Vector2(checkAir.position.x, checkAir.position.y), 0, _whatIsBrick).gameObject;
+            _gameObjUp.GetComponent<BrickSc>().activation();
         }
         if (onGround && jumpButton)
         {
-            rb.AddForce(new Vector2(0, 1f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
     }
     private void GetInput()
     {
         jumpButton = Input.GetKey(KeyCode.Space);
+    }
+    public void ChangeSize()
+    {
+
     }
 }
