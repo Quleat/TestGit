@@ -15,10 +15,7 @@ public class CharacterControl : MonoBehaviour
     public bool onGround;
     public bool onAir;
 
-    private bool leftButton;
-    private bool rightButton;
     private bool jumpButton;
-    private bool downButton;
 
     public Transform checkGround;
     public Transform checkAir;
@@ -27,6 +24,8 @@ public class CharacterControl : MonoBehaviour
     public LayerMask _whatIsBrick;
 
     private Transform cm;
+
+    public GameObject _bigPlayerPrefab;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,7 +52,7 @@ public class CharacterControl : MonoBehaviour
     {
         onGround = Physics2D.OverlapCircle(new Vector2(checkGround.position.x, checkGround.position.y), 0, _whatIsGround);
         onAir = Physics2D.OverlapCircle(new Vector2(checkAir.position.x, checkAir.position.y), 0, _whatIsBrick);
-        if(onAir)
+        if(onAir && rb.velocity.y > 0)
         {
             GameObject _gameObjUp = Physics2D.OverlapCircle(new Vector2(checkAir.position.x, checkAir.position.y), 0, _whatIsBrick).gameObject;
             _gameObjUp.GetComponent<BrickSc>().activation();
@@ -69,6 +68,7 @@ public class CharacterControl : MonoBehaviour
     }
     public void ChangeSize()
     {
-
+        GameObject _newPlayer = Instantiate(_bigPlayerPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), new Quaternion(0,0,0,0)) as GameObject;
+        Destroy(gameObject);
     }
 }

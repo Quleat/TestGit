@@ -24,6 +24,6 @@ public class BrickSc : MonoBehaviour
             GameObject _item = Instantiate(item) as GameObject;
             _item.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.1f);
     }
 }
