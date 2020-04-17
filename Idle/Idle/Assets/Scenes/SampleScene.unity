@@ -161,7 +161,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.49}
+  m_Size: {x: 0.25, y: 4.21}
   m_EdgeRadius: 0
 --- !u!4 &353899922
 Transform:
@@ -301,7 +301,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.49}
+  m_Size: {x: 0.25, y: 19.9}
   m_EdgeRadius: 0
 --- !u!4 &525834187
 Transform:
@@ -502,6 +502,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 141681218302806509, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: m_Text
+      value: Buy a new one
+      objectReference: {fileID: 0}
     - target: {fileID: 141681218851350785, guid: dd25a1e4d90446d4bb5402b0f59486f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -612,10 +617,27 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 141681218851351037, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: mushroomPrefab
+      value: 
+      objectReference: {fileID: 3029358905773090818, guid: 87391bf6931ebb14f8362393f0144acb,
+        type: 3}
+    - target: {fileID: 141681218851351037, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: platformPrefab
+      value: 
+      objectReference: {fileID: 7076045238031369053, guid: 510e53a0be4ac224bb79b0681f7bba11,
+        type: 3}
     - target: {fileID: 141681218851351038, guid: dd25a1e4d90446d4bb5402b0f59486f8,
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 141681219242502576, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddNewOne
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd25a1e4d90446d4bb5402b0f59486f8, type: 3}
