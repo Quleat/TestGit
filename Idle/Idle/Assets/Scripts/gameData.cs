@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gameData : MonoBehaviour
+public static class gameData
 {
     public static int points = 0;
-    void Start()
-    {
-        DontDestroyOnLoad(this);
-    }
+    public static int[] minerLevel = { 10, 20, 30 };
 }

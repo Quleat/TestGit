@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MushRoom : MonoBehaviour
 {
+    public int minerType;
+    public float digTime = 1f;
     Rigidbody2D rb;
     public LayerMask WhatIsWall;
     public bool dig = false;
@@ -18,7 +20,7 @@ public class MushRoom : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "1st")
             {
-                Score.AddPoints();
+                Score.AddPoints(minerType);
                 transform.Rotate(new Vector3(0, 180, 0), Space.Self);
             }
             else
@@ -36,7 +38,7 @@ public class MushRoom : MonoBehaviour
     {
         dig = true;
         rb.velocity = new Vector2(0, 0);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(digTime);
         transform.Rotate(new Vector3(0, 180, 0), Space.Self);
         dig = false;
     }

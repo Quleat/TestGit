@@ -5,17 +5,24 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Score : MonoBehaviour
-{ 
+{
     public static Text _text;
-    public static Slider _slider;
     public Text text;
-    public Slider slider;
-    public static int amount = 10;
 
-    private bool maxMushrooms = false;
+    public Slider slider;
+    public static Slider _slider;
+
+    public static int amount = 10;
 
     public GameObject platformPrefab;
     public GameObject mushroomPrefab;
+    public GameObject[] miners = new GameObject[3];
+    public GameObject[] minerPrefabs = new GameObject[3];
+    public int[] minerAmount = { 20, 50, 80 };
+    public Text[] minerUpgradeText = new Text[3];
+    public Text[] minerBuyNewText = new Text[3];
+
+    public Transform[] minerSpawns = new Transform[3];
 
     void Start()
     {
@@ -24,39 +31,45 @@ public class Score : MonoBehaviour
         _text = text;
         _slider = slider;
         DontDestroyOnLoad(gameObject);
-    }
-    public static void AddPoints()
-    {
-        gameData.points += amount;
-        _text.text = gameData.points.ToString();
-    }
-    public void IncreaseAmount()
-    {
-        if (gameData.points >= (amount * 3)) 
+        Physics2D.IgnoreLayerCollision(9, 9);
+        for (int i = 0; i < minerUpgradeText.Length; i++)
         {
-            gameData.points -= amount * 3;
-            amount *= 2;
+            minerUpgradeText[i].text = "Upgrade: " + (gameData.minerLevel[i] * 3).ToString();
+            minerBuyNewText[i].text = "Buy a new one: " + minerAmount[i].ToString();
+        }
+    }
+    public static void AddPoints(int minerType)
+    {
+        
+            gameData.points += gameData.minerLevel[minerType];
+            _text.text = gameData.points.ToString();
+        
+    }
+    public void AddNewOne(int minerType)
+    {
+        if (gameData.points >= minerAmount[minerType])
+        {
+            if (!miners[minerType].activeSelf)
+            {
+                miners[minerType].SetActive(true);
+            }
+            else
+            {
+                GameObject _newMiner = Instantiate(minerPrefabs[minerType], new Vector3(minerSpawns[minerType].position.x, minerSpawns[minerType].position.y, minerSpawns[minerType].position.z), Quaternion.Euler(0, 0, 0)) as GameObject;
+            }
+            gameData.points -= minerAmount[minerType];
+            minerAmount[minerType] *= 2;
+            minerBuyNewText[minerType].text = "Buy a new one: " + minerAmount[minerType].ToString();
             _text.text = gameData.points.ToString();
         }
     }
-    public void IncreaseProgress()
+    public void UpgradeMiner(int minerType)
     {
-        _slider.value += (gameData.points / 10);
-        gameData.points %= 10;
-        _text.text = gameData.points.ToString();
-        if (slider.value >= slider.maxValue) SceneManager.LoadScene(1);
-    }
-    public void AddNewOne()
-    {
-        if (gameData.points >= 20)
-        {
-            GameObject _platform = Instantiate(platformPrefab) as GameObject;
-            _platform.transform.position = new Vector3(-3.7f, -0.48f, 0);
-            GameObject _mushroom = Instantiate(mushroomPrefab) as GameObject;
-            _mushroom.transform.position = new Vector3(-4f, -0.28f, 0);
-            gameData.points -= 20;
-            maxMushrooms = true;
-            _text.text = gameData.points.ToString();
-        }
+            if (gameData.points >= gameData.minerLevel[minerType] * 3)
+            {
+                gameData.minerLevel[minerType] *= 2;
+                gameData.points -= gameData.minerLevel[minerType] * 3;
+                minerUpgradeText[minerType].text = "Upgrade: " + (gameData.minerLevel[minerType] * 3).ToString();
+            }
     }
 }
