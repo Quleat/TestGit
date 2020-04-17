@@ -63,8 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\MushRoom.cs" />
-    <Compile Include="Assets\Score.cs" />
+    <Compile Include="Assets\Scripts\gameData.cs" />
+    <Compile Include="Assets\Scripts\MushRoom.cs" />
+    <Compile Include="Assets\Scripts\Score.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>I:/UnityAndET/GitHub/Idle/Idle/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -5,7 +5,6 @@ using UnityEngine;
 public class MushRoom : MonoBehaviour
 {
     Rigidbody2D rb;
-    int direction = 1;
     public LayerMask WhatIsWall;
     public bool dig = false;
     void Start()
@@ -37,7 +36,7 @@ public class MushRoom : MonoBehaviour
     {
         dig = true;
         rb.velocity = new Vector2(0, 0);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         transform.Rotate(new Vector3(0, 180, 0), Space.Self);
         dig = false;
     }
