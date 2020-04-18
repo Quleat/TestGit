@@ -8,19 +8,22 @@ public class Score : MonoBehaviour
 {
     public static Text _text;
     public Text text;
+    public Text[] minerUpgradeText = new Text[3];
+    public Text[] minerBuyNewText = new Text[3];
+    public Text[] minerStats = new Text[3];
 
     public Slider slider;
     public static Slider _slider;
-
-    public static int amount = 10;
 
     public GameObject platformPrefab;
     public GameObject mushroomPrefab;
     public GameObject[] miners = new GameObject[3];
     public GameObject[] minerPrefabs = new GameObject[3];
-    public int[] minerAmount = { 20, 50, 80 };
-    public Text[] minerUpgradeText = new Text[3];
-    public Text[] minerBuyNewText = new Text[3];
+    public GameObject[] minerUpgradeButton = new GameObject[3];
+    public GameObject[] minerBuyNewButton = new GameObject[3];
+
+    public int[] minerAmount = { 40, 70, 100 };
+    private int[] minerStatsLevel = { 1, 1, 1 };
 
     public Transform[] minerSpawns = new Transform[3];
 
@@ -40,10 +43,8 @@ public class Score : MonoBehaviour
     }
     public static void AddPoints(int minerType)
     {
-        
             gameData.points += gameData.minerLevel[minerType];
             _text.text = gameData.points.ToString();
-        
     }
     public void AddNewOne(int minerType)
     {
@@ -52,6 +53,10 @@ public class Score : MonoBehaviour
             if (!miners[minerType].activeSelf)
             {
                 miners[minerType].SetActive(true);
+                if (minerType > 0)
+                {
+                    minerUpgradeButton[minerType].SetActive(true);
+                }
             }
             else
             {
@@ -67,9 +72,12 @@ public class Score : MonoBehaviour
     {
             if (gameData.points >= gameData.minerLevel[minerType] * 3)
             {
-                gameData.minerLevel[minerType] *= 2;
                 gameData.points -= gameData.minerLevel[minerType] * 3;
+                gameData.minerLevel[minerType] *= 2;
                 minerUpgradeText[minerType].text = "Upgrade: " + (gameData.minerLevel[minerType] * 3).ToString();
+                minerStatsLevel[minerType]++;
+                minerStats[minerType].text = "Level: " + minerStatsLevel[minerType] + " Income: " + gameData.minerLevel[minerType];
             }
+        _text.text = gameData.points.ToString();
     }
 }
