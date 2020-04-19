@@ -30,7 +30,7 @@ public class MushRoom : MonoBehaviour
         }
         else
         {
-            rb.velocity = transform.TransformDirection(Vector2.right);
+            rb.velocity = transform.TransformDirection(Vector2.right * gameData.minerSpeed[minerType]);
         }
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right));
     }

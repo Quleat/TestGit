@@ -24,6 +24,7 @@ public class Score : MonoBehaviour
 
     public int[] minerAmount = { 40, 70, 100 };
     private int[] minerStatsLevel = { 1, 1, 1 };
+    private int[] incomeBonus = { 1, 1, 1 };
 
     public Transform[] minerSpawns = new Transform[3];
 
@@ -33,17 +34,16 @@ public class Score : MonoBehaviour
         canvas.worldCamera = Camera.main;
         _text = text;
         _slider = slider;
-        DontDestroyOnLoad(gameObject);
         Physics2D.IgnoreLayerCollision(9, 9);
         for (int i = 0; i < minerUpgradeText.Length; i++)
         {
-            minerUpgradeText[i].text = "Upgrade: " + (gameData.minerLevel[i] * 3).ToString();
+            //minerUpgradeText[i].text = "Upgrade: " + (gameData.minerLevel[i] * 3).ToString();
             minerBuyNewText[i].text = "Buy a new one: " + minerAmount[i].ToString();
         }
     }
     public static void AddPoints(int minerType)
     {
-            gameData.points += gameData.minerLevel[minerType];
+            gameData.points += (gameData.minerLevel[minerType] );
             _text.text = gameData.points.ToString();
     }
     public void AddNewOne(int minerType)
@@ -70,14 +70,33 @@ public class Score : MonoBehaviour
     }
     public void UpgradeMiner(int minerType)
     {
-            if (gameData.points >= gameData.minerLevel[minerType] * 3)
-            {
-                gameData.points -= gameData.minerLevel[minerType] * 3;
-                gameData.minerLevel[minerType] *= 2;
-                minerUpgradeText[minerType].text = "Upgrade: " + (gameData.minerLevel[minerType] * 3).ToString();
+        if (gameData.points >= gameData.minerLevel[minerType] * 3)
+        {
+            int Newincome = 0;
                 minerStatsLevel[minerType]++;
-                minerStats[minerType].text = "Level: " + minerStatsLevel[minerType] + " Income: " + gameData.minerLevel[minerType];
-            }
+                gameData.points -= gameData.minerLevel[minerType] * 3;
+                if (minerStatsLevel[minerType] == 24 || minerStatsLevel[minerType] == 49 || minerStatsLevel[minerType] == 99)
+                {
+                Newincome = gameData.minerLevel[minerType] * 3;
+                }
+                else if(minerStatsLevel[minerType] == 25 || minerStatsLevel[minerType] == 50 || minerStatsLevel[minerType] == 100)
+                {
+                gameData.minerLevel[minerType] *= 4;
+                Newincome = gameData.minerLevel[minerType];
+                }
+                else 
+                {
+                gameData.minerLevel[minerType] *= 2;
+                Newincome = gameData.minerLevel[minerType];
+                }
+
+                if (gameData.minerSpeed[minerType] < 2) gameData.minerSpeed[minerType] *= 2;
+                minerUpgradeText[minerType].text = ($"Level: {minerStatsLevel[minerType]} +{1}\n" + $" Upgrade: {gameData.minerLevel[minerType] * 3} +{gameData.minerLevel[minerType] * 3}\n" + $" Income: {gameData.minerLevel[minerType]} +{Newincome}");
+        }
         _text.text = gameData.points.ToString();
+    }
+    public void Test()
+    {
+
     }
 }
