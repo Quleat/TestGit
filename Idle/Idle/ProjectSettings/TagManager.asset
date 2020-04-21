@@ -16,10 +16,10 @@ TagManager:
   - 
   - wall
   - mushroom
-  - 
-  - 
-  - 
-  - 
+  - platform
+  - tempStorage
+  - Storage
+  - CollectorEnd
   - 
   - 
   - 
