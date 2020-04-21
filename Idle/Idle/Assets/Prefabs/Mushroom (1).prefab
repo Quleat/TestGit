@@ -123,9 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minerType: 1
+  digTime: 1
   WhatIsWall:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
   dig: 0
 --- !u!50 &2982780238244321943
 Rigidbody2D:

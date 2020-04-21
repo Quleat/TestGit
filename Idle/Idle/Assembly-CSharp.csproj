@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CarrierSc.cs" />
     <Compile Include="Assets\Scripts\collector.cs" />
     <Compile Include="Assets\Scripts\gameData.cs" />
     <Compile Include="Assets\Scripts\MushRoom.cs" />

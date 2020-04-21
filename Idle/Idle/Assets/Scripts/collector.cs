@@ -9,85 +9,67 @@ public class collector: MonoBehaviour
     public LayerMask WhatIsTempStorage;
     public LayerMask WhatIsCollectorEnd;
     public float waitTime = 15f;
+    private int caring = 0;
     public bool activated = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        StartCoroutine(Collecting());
     }
-    //private void Awake()
-    //{
-    //    StartCoroutine(Collecting());
-    //}
     void Update()
     {
-        if (waitTime <= 0 && !activated)
-        {
-            activated = true;
-            StartCoroutine(Collecting());
-        }
-        waitTime -= Time.deltaTime;
-        //if (!returning)
-        //{
-            
-        //    else
-        //    {
-        //        StopCoroutine(Collecting());
-        //        returning = true;
-        //    }
-        //}
-        //else
-        //{
-        //    StartCoroutine(Folding());
-        //}
+
     }
     IEnumerator Collecting()
     {
-        Debug.Log("activated1");
-        //StopCoroutine(Folding());
         while (true)
         {
-            Debug.Log("activated2");
             Debug.DrawLine(transform.position, new Vector3(transform.position.x + 1, transform.position.y, transform.position.z));
-            rb.velocity = new Vector2(0, 1);
+            rb.velocity = new Vector2(0, Score.collectorSpeed);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 10f);
-            if (hit.collider.gameObject.layer == WhatIsTempStorage)
+            if (hit.collider.gameObject.layer == 11)
             {
                 Debug.DrawLine(transform.position, hit.transform.position);
                 int minerType = hit.collider.GetComponent<TempStorage>().minerType;
                 rb.velocity = new Vector2(0, 0);
                 yield return new WaitForSeconds(1f);
-                rb.velocity = new Vector2(0, 1);
-                yield return new WaitForSeconds(1f);
-                gameData.points += Score.tempStorage[minerType];
-                Score.tempStorage[minerType] = 0;
+                caring += Score.tempStorage[minerType];
+                Score.ClearStorage(minerType);
+                rb.velocity = new Vector2(0, Score.collectorSpeed);
+                yield return new WaitForSeconds(0.5f);
             }
             RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.up, 100);
-            if (hit2.collider.gameObject.layer == WhatIsCollectorEnd)
+            if (hit2 == false)
             {
-                Debug.Log("EndCollecting");
-                yield return new WaitForSeconds(2f);
+                rb.velocity = new Vector2(0, 0);
                 StartCoroutine(Folding());
                 yield break;
-                //StopCoroutine(Collecting());
             }
-            //yield return new WaitForSeconds(0);
+            yield return new WaitForSeconds(0.1f);
+          
         }
-       
     }
     IEnumerator Folding()
     {
-        activated = true;
         while (true)
         {
+            Debug.Log("Folding");
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
-            if (hit.collider.gameObject.layer == WhatIsStorage)
+            rb.velocity = new Vector2(0, -Score.collectorSpeed);
+            if (hit != false)
             {
-                activated = true;
-                Debug.Log("EndFolding");
-                yield return new WaitForSeconds(1f);
-                StartCoroutine(Collecting());
-                yield break;
+                if (hit.collider.gameObject.layer == 12)
+                {
+                    Debug.Log("EndFolding");
+                    rb.velocity = new Vector2(0, 0);
+                    yield return new WaitForSeconds(1f);
+                    Score.AddCollectorPoints(caring);
+                    caring = 0;
+                    StartCoroutine(Collecting());
+                    yield break;
+                }
             }
+            yield return new WaitForSeconds(0.1f);
         }
     }
     void StartingCoroutins()
