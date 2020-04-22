@@ -5,31 +5,42 @@ using UnityEngine;
 public class CarrierSc : MonoBehaviour
 {
     Rigidbody2D _rb;
-    public static Rigidbody2D rb;
-    public static Transform _transform;
+    public Transform _transform;
+    int carriing = 0;
+    public bool atBase;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        rb = _rb;
         _transform = transform;
-    }
-    void Update()
-    {
-        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "shop")
         {
-            Score.AddGeneralPoints();
-            rb.velocity = new Vector2(-1, 0);
+            Score.AddGeneralPoints(carriing);
+            _rb.velocity = new Vector2(-1, 0);
         } else if(collision.gameObject.tag == "storage")
         {
-            rb.velocity = new Vector2(0, 0);
+            _rb.velocity = new Vector2(0, 0);
+            atBase = true;
+        }
+        
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "storage")
+        {
+            atBase = false;
         }
     }
-    public static void Send()
+    public void Send()
     {
-        rb.velocity = _transform.TransformDirection(Vector2.right);
+        if (atBase)
+        {
+            _rb.velocity = _transform.TransformDirection(Vector2.right);
+            carriing += gameData.points;
+            gameData.points = 0;
+            Score.UpdateMoney();
+        }
     }
 }

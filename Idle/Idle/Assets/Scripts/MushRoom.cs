@@ -5,7 +5,6 @@ using UnityEngine;
 public class MushRoom : MonoBehaviour
 {
     public int minerType;
-    public float digTime = 1f;
     Rigidbody2D rb;
     public LayerMask WhatIsWall;
     public bool dig = false;
@@ -38,8 +37,13 @@ public class MushRoom : MonoBehaviour
     {
         dig = true;
         rb.velocity = new Vector2(0, 0);
-        yield return new WaitForSeconds(digTime);
+        yield return new WaitForSeconds(Miners.digTime[minerType]);
         transform.Rotate(new Vector3(0, 180, 0), Space.Self);
         dig = false;
     }
 }
+public static class Miners
+{
+    public static float[] digTime = { 4f, 4f, 4f };
+}
+

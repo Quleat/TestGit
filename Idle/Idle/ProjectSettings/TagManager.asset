@@ -7,6 +7,7 @@ TagManager:
   - 1st
   - shop
   - storage
+  - carrier
   layers:
   - Default
   - TransparentFX

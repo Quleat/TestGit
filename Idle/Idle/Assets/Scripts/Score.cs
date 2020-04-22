@@ -36,8 +36,10 @@ public class Score : MonoBehaviour
 
     public Transform[] minerSpawns = new Transform[3];
 
+    CarrierSc carrier;
     void Start()
     {
+        carrier = GameObject.FindGameObjectWithTag("carrier").GetComponent<CarrierSc>();
         collectorText = _collectorText;
         generalPoints = _generalPoints;
         storageTexts = _storageTexts;
@@ -48,7 +50,6 @@ public class Score : MonoBehaviour
         Physics2D.IgnoreLayerCollision(9, 9);
         for (int i = 0; i < minerUpgradeText.Length; i++)
         {
-            //minerUpgradeText[i].text = "Upgrade: " + (gameData.minerLevel[i] * 3).ToString();
             minerBuyNewText[i].text = "Buy a new one: " + minerAmount[i].ToString();
         }
     }
@@ -127,21 +128,45 @@ public class Score : MonoBehaviour
             if (collectorSpeed < 2)
             {
                 gameData.generalPoints -= collectorCost;
+            }
                 collectorCost *= 2;
                 collectorSpeed += 0.2f;
                 collectorText.text = $"Upgrade collector: {collectorCost.ToString()}";
-            }
         }
     }
-    public static void AddGeneralPoints()
+    public static void AddGeneralPoints(int value)
     {
-        gameData.generalPoints += gameData.points;
-        gameData.points = 0;
+
         _text.text = gameData.points.ToString();
-        generalPoints.text = gameData.generalPoints.ToString();
+        generalPoints.text = (gameData.generalPoints + value).ToString();
     }
     public void SendCarrier()
     {
-        CarrierSc.Send();
+        carrier.Send();
+    }
+    public void ActivateBoost()
+    {
+        StartCoroutine(ActivateCorotineBoost());
+        Debug.Log("+");
+    }
+    public static void UpdateMoney()
+    {
+        _text.text = gameData.points.ToString();
+        generalPoints.text = gameData.points.ToString();
+    }
+    IEnumerator ActivateCorotineBoost()
+    {
+        float[] _digTime = new float[3];
+        for (int i = 0; i < 3; i++)
+        {
+            _digTime[i] = Miners.digTime[i];
+            Miners.digTime[i] = 0;
+            Debug.Log("+");
+        }
+        yield return new WaitForSeconds(60f);
+        for (int i = 0; i < 3; i++)
+        {
+            Miners.digTime[i] = _digTime[i];
+        }
     }
 }
