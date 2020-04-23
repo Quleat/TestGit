@@ -37,6 +37,7 @@ public class CarrierSc : MonoBehaviour
     {
         if (atBase)
         {
+            carriing = 0;
             _rb.velocity = _transform.TransformDirection(Vector2.right);
             carriing += gameData.points;
             gameData.points = 0;

@@ -32,11 +32,15 @@ public class Score : MonoBehaviour
     private int[] minerStatsLevel = { 1, 1, 1 };
     public static int[] tempStorage = { 10, 20, 30 };
     public static float collectorSpeed = 0.5f;
-    public int collectorCost = 30;
+    public int collectorCost = 60;
 
     public Transform[] minerSpawns = new Transform[3];
 
     CarrierSc carrier;
+
+    public bool[] active1 = new bool[3];
+    public bool[] active2 = new bool[3];
+    public bool[] active3 = new bool[3];
     void Start()
     {
         carrier = GameObject.FindGameObjectWithTag("carrier").GetComponent<CarrierSc>();
@@ -117,7 +121,7 @@ public class Score : MonoBehaviour
         }
        generalPoints.text = gameData.generalPoints.ToString();
     }
-    public void Test()
+    public void Test(int money)
     {
 
     }
@@ -132,41 +136,81 @@ public class Score : MonoBehaviour
                 collectorCost *= 2;
                 collectorSpeed += 0.2f;
                 collectorText.text = $"Upgrade collector: {collectorCost.ToString()}";
+                UpdateMoney();
         }
     }
     public static void AddGeneralPoints(int value)
     {
-
-        _text.text = gameData.points.ToString();
-        generalPoints.text = (gameData.generalPoints + value).ToString();
+        gameData.generalPoints += value;
+        UpdateMoney();
     }
     public void SendCarrier()
     {
         carrier.Send();
     }
-    public void ActivateBoost()
+    public void ActivateBoost(int type)
     {
-        StartCoroutine(ActivateCorotineBoost());
-        Debug.Log("+");
+        int minerType = (type % 10) -1;
+        type /= 10;
+        StartCoroutine(ActivateCorotineBoost(type, minerType));
     }
     public static void UpdateMoney()
     {
         _text.text = gameData.points.ToString();
-        generalPoints.text = gameData.points.ToString();
+        generalPoints.text = gameData.generalPoints.ToString();
     }
-    IEnumerator ActivateCorotineBoost()
+    IEnumerator ActivateCorotineBoost(int type, int minerType)
     {
-        float[] _digTime = new float[3];
-        for (int i = 0; i < 3; i++)
+        if(active1[minerType] && type == 1)
         {
-            _digTime[i] = Miners.digTime[i];
-            Miners.digTime[i] = 0;
-            Debug.Log("+");
+            type = 0;
         }
+        if (active2[minerType] && type == 2)
+        {
+            type = 0;
+        }
+        if (active3[minerType] && type == 3)
+        {
+            type = 0;
+        }
+        float _statBefore = 0;
+       
+            if (type == 1)
+            {
+                _statBefore = Miners.digTime[minerType];
+                Miners.digTime[minerType] = 0;
+                Debug.Log("+");
+                active1[minerType] = true;
+            }
+            else if(type == 2)
+            {
+                _statBefore = gameData.minerSpeed[minerType];
+                gameData.minerSpeed[minerType] *= 2;
+                active2[minerType] = true;
+            }
+            else if(type == 3)
+            {
+                _statBefore = gameData.minerLevel[minerType];
+                gameData.minerLevel[minerType] *= 3;
+                active3[minerType] = true;
+            }
+        
         yield return new WaitForSeconds(60f);
-        for (int i = 0; i < 3; i++)
-        {
-            Miners.digTime[i] = _digTime[i];
-        }
+       
+            if (type == 1)
+            {
+                Miners.digTime[minerType] = _statBefore;
+                active1[minerType] = false;
+            }
+            else if(type == 2)
+            {
+                gameData.minerSpeed[minerType] = _statBefore;
+                active2[minerType] = false;
+            }
+            else if(type == 3)
+            {
+                gameData.minerLevel[minerType] = (int)_statBefore;
+                active3[minerType] = false;
+            }
     }
 }
