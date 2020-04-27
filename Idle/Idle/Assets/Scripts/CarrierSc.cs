@@ -6,7 +6,7 @@ public class CarrierSc : MonoBehaviour
 {
     Rigidbody2D _rb;
     public Transform _transform;
-    int carriing = 0;
+    int carrying = 0;
     public bool atBase;
     void Start()
     {
@@ -17,7 +17,7 @@ public class CarrierSc : MonoBehaviour
     {
         if(collision.gameObject.tag == "shop")
         {
-            Score.AddGeneralPoints(carriing);
+            gameData.GeneralPoints += carrying;
             _rb.velocity = new Vector2(-1, 0);
         } else if(collision.gameObject.tag == "storage")
         {
@@ -37,11 +37,10 @@ public class CarrierSc : MonoBehaviour
     {
         if (atBase)
         {
-            carriing = 0;
+            carrying = 0;
             _rb.velocity = _transform.TransformDirection(Vector2.right);
-            carriing += gameData.points;
-            gameData.points = 0;
-            Score.UpdateMoney();
+            carrying += gameData.LocalPoints;
+            gameData.LocalPoints = 0;
         }
     }
 }

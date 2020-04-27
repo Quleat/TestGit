@@ -438,6 +438,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &280294403 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 141681217925818182, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 141681218569486723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &329142189 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 749888660, guid: dd25a1e4d90446d4bb5402b0f59486f8,
@@ -3165,6 +3177,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3029358905957353205}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1819319107 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3029358905773090829, guid: 87391bf6931ebb14f8362393f0144acb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3029358905957353205}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819319105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: babcd36ac4611db42bd6b9f99ced2682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1846380482
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,6 +4044,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 141681218344711306, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1819319107}
+    - target: {fileID: 141681218344711306, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeMiner
+      objectReference: {fileID: 0}
+    - target: {fileID: 141681218344711306, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 141681218851350785, guid: dd25a1e4d90446d4bb5402b0f59486f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4170,6 +4209,11 @@ PrefabInstance:
       propertyPath: _collectorText
       value: 
       objectReference: {fileID: 1213428838}
+    - target: {fileID: 141681218851351037, guid: dd25a1e4d90446d4bb5402b0f59486f8,
+        type: 3}
+      propertyPath: _text
+      value: 
+      objectReference: {fileID: 280294403}
     - target: {fileID: 141681218851351038, guid: dd25a1e4d90446d4bb5402b0f59486f8,
         type: 3}
       propertyPath: m_Name
@@ -4189,6 +4233,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom
       objectReference: {fileID: 0}
+    - target: {fileID: 3029358905773090825, guid: 87391bf6931ebb14f8362393f0144acb,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: ee6a017f4fe49384cb4e0d0ba06e850e, type: 2}
     - target: {fileID: 3029358905773090830, guid: 87391bf6931ebb14f8362393f0144acb,
         type: 3}
       propertyPath: m_LocalPosition.x

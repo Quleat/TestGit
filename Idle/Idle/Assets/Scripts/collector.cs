@@ -9,8 +9,9 @@ public class collector: MonoBehaviour
     public LayerMask WhatIsTempStorage;
     public LayerMask WhatIsCollectorEnd;
     public float waitTime = 15f;
-    private int caring = 0;
+    private int carrying = 0;
     public bool activated = false;
+    public  static float Speed = 0.5f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +25,7 @@ public class collector: MonoBehaviour
     {
         while (true)
         {
-            rb.velocity = new Vector2(0, Score.collectorSpeed);
+            rb.velocity = new Vector2(0, Speed);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 10f);
             if (hit.collider.gameObject.layer == 11)
             {
@@ -32,9 +33,10 @@ public class collector: MonoBehaviour
                 int minerType = hit.collider.GetComponent<TempStorage>().minerType;
                 rb.velocity = new Vector2(0, 0);
                 yield return new WaitForSeconds(1f);
-                caring += Score.tempStorage[minerType];
-                Score.ClearStorage(minerType);
-                rb.velocity = new Vector2(0, Score.collectorSpeed);
+                carrying += gameData.TempStoragePoints[minerType];
+
+                gameData.ClearTempPoints(minerType);
+                rb.velocity = new Vector2(0, Speed);
                 RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.up, 100);
                 if (hit2 == false)
                 {
@@ -54,15 +56,15 @@ public class collector: MonoBehaviour
         while (true) 
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
-            rb.velocity = new Vector2(0, -Score.collectorSpeed);
+            rb.velocity = new Vector2(0, -Speed);
             if (hit != false)
             {
                 if (hit.collider.gameObject.layer == 12)
                 {
                     rb.velocity = new Vector2(0, 0);
                     yield return new WaitForSeconds(1f);
-                    Score.AddCollectorPoints(caring);
-                    caring = 0;
+                    gameData.LocalPoints += carrying;
+                    carrying = 0;
                     StartCoroutine(Collecting());
                     yield break;
                 }
