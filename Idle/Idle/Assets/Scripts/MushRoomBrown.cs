@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MushRoomBrown : MonoBehaviour
 {
+    MushRoom mushRoom;
+    Rigidbody2D rb;
+    LayerMask whatIsWall;
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
