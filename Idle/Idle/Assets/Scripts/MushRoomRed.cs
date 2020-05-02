@@ -4,63 +4,34 @@ using UnityEngine;
 
 public class MushRoomRed : MonoBehaviour
 {
-    public int MinerType;
-    Rigidbody2D rb;
-    public LayerMask WhatIsWall;
-    public bool dig = false;
-    public MushRoom mushRoom;
-    public GameObject[] minerUpgradeButton = new GameObject[3];
+    public int MinerType = 2;
 
-    private Transform _transform;
+    public LayerMask WhatIsWall;
+
+    public float distance = 0.1f;
+
+    Rigidbody2D rb;
+
+    MushRoom mushRoom;
+
+    public GameObject tempStorage;
 
     void Start()
     {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 100f, WhatIsWall);
+        tempStorage = hit.collider.gameObject;
         rb = GetComponent<Rigidbody2D>();
-        mushRoom = new MushRoom(5, 1f, 5f, transform, WhatIsWall, 0.1f, rb, Vector3.right);
-        rb.velocity = new Vector2(1, 0);
-
-        _transform = transform; 
+        mushRoom = new MushRoom(20, 3f, 0.2f, transform, WhatIsWall, distance, rb, tempStorage);
     }
     void FixedUpdate()
     {
-        if (mushRoom.Mine())
-        {
-            gameData.ChangeTempPoints(mushRoom.Income, MinerType);
-        }
+        mushRoom.Mine(Miner.SpeedGreen, Miner.SpeedGreen);
     }
     public void UpgradeMiner()
     {
-        if (gameData.GeneralPoints >= mushRoom.Income * 3)
+        if (gameData.GeneralPoints >= Miner.IncomeGreen * 1)
         {
-            mushRoom.Upgrade();
-            gameData.GeneralPoints -= mushRoom.Income * 3;
+            gameData.GeneralPoints -= Miner.IncomeGreen * 1;
         }
     }
 }
-//RaycastHit2D hit = Physics2D.Raycast(_transform.position, _transform.TransformDirection(Vector2.right), 0.1f, WhatIsWall);
-//        if (hit && !dig)
-//        {
-//            if (hit.collider.gameObject.tag == "1st")
-//            {
-//                gameData.ChangeTempPoints(mushRoom.Income, minerType);
-//                _transform.Rotate(new Vector3(0, 180, 0), Space.Self);
-//            }
-//            else
-//            {
-//                StartCoroutine(Diging());
-//            }
-//        }
-//        else
-//        {
-//            rb.velocity = _transform.TransformDirection(Vector2.right* mushRoom.Speed);
-//        }
-//        IEnumerator Diging()
-//{
-//    dig = true;
-//    rb.velocity = new Vector2(0, 0);
-//    yield return new WaitForSeconds(mushRoom.DigTime);
-//    _transform.Rotate(new Vector3(0, 180, 0), Space.Self);
-//    dig = false;
-//}
-
-

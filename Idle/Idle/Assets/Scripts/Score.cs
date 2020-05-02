@@ -52,8 +52,8 @@ public class Score : MonoBehaviour
     }
     public void AddNewOne(int minerType)
     {
-        if (gameData.GeneralPoints >= minerAmount[minerType])
-        {
+        //if (gameData.GeneralPoints >= minerAmount[minerType])
+        //{
             if (!miners[minerType].activeSelf)
             {
                 miners[minerType].SetActive(true);
@@ -69,7 +69,7 @@ public class Score : MonoBehaviour
             gameData.GeneralPoints += minerAmount[minerType];
             minerAmount[minerType] *= 2;
             minerBuyNewText[minerType].text = "Buy a new one: " + minerAmount[minerType].ToString();
-        }
+        //}
     }
     public void UpgradeMiner()
     {

@@ -5,31 +5,39 @@ using UnityEngine;
 public class MushRoom
 {
     public int Income = 1;
-    public float DigTime = 1f;
-    public float Speed = 0.2f;
-    public float boostSpeed = 1f;
-    public float boostMoney = 1f;
     public int Lvl = 1;
-    Transform transform;
-    LayerMask whatIsWall;
-    float distance;
-    Rigidbody2D rb;
-    Vector3 direction;
-
-    private float curTime = 0;
-    private bool digging;
+    public int cost = 0;
     public int Cost
     {
         get
         {
-            return Cost;
+            return cost;
         }
         set
         {
-            Cost *= value; 
+            cost *= value;
         }
     }
-    public MushRoom(int inc, float dig, float spe, Transform _transform, LayerMask _whatIsWall, float _distance, Rigidbody2D _rb, Vector3 _direction)
+
+    public float DigTime = 1f;
+    public float Speed = 0.2f;
+    public float boostSpeed = 1f;
+    public float boostMoney = 1f;
+    private float distance;
+    private float curTime = 0;
+
+    Transform transform;
+
+    LayerMask whatIsWall;
+   
+    Rigidbody2D rb;
+
+    private bool digging;
+
+    private GameObject storage;
+
+    private TempStorage tempStorage;
+    public MushRoom(int inc, float dig, float spe, Transform _transform, LayerMask _whatIsWall, float _distance, Rigidbody2D _rb, GameObject _storage)
     {
         Income = inc;
         DigTime = dig;
@@ -38,17 +46,18 @@ public class MushRoom
         whatIsWall = _whatIsWall;
         distance = _distance;
         rb = _rb;
-        direction = _direction;
+        storage = _storage;
+        tempStorage = storage.GetComponent<TempStorage>();
     }
 
     public int Dig()
     {
         return (int)(Income * boostSpeed);
     }
-    public void Upgrade()
+    public void Upgrade(ref int income, ref float speed)
     {
-        Income = (int)(Income * 1.5);
-        Speed = (int)(Speed * 1.5);
+        income *= 2;
+        speed *= 2f;
         Cost = 2;
         Debug.Log(Cost);
     }
@@ -57,15 +66,15 @@ public class MushRoom
         transform.Rotate(new Vector3(0, 180, 0), Space.Self);
         rb.velocity = transform.TransformDirection(Vector2.right * Speed * Time.deltaTime);
     }
-    public bool Mine()
+    public void Mine(float speed, float digTime)
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), distance, whatIsWall);
         if (hit)
         {
-            if (hit.collider.gameObject.tag == "1st")
+            if (hit.collider.gameObject == storage)
             {
+                tempStorage.AddPoints();
                 Rotate();
-                return true;
             }
             else
             {
@@ -76,7 +85,7 @@ public class MushRoom
                     curTime = 0;
                 }
                 curTime += Time.deltaTime;
-                if(curTime >= DigTime)
+                if (curTime >= digTime)
                 {
                     digging = false;
                     Rotate();
@@ -85,8 +94,7 @@ public class MushRoom
         }
         else
         {
-            rb.velocity = transform.TransformDirection(Vector2.right * Speed * Time.deltaTime);
+            rb.velocity = transform.TransformDirection(Vector2.right * speed * Time.deltaTime);
         }
-        return false;
     }
 }

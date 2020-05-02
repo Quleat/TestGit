@@ -27,7 +27,7 @@ public class collector: MonoBehaviour
         {
             rb.velocity = new Vector2(0, Speed);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 10f);
-            if (hit.collider.gameObject.layer == 11)
+            if (hit.collider.gameObject.layer == 8)
             {
                 Debug.DrawLine(transform.position, hit.transform.position);
                 int minerType = hit.collider.GetComponent<TempStorage>().minerType;
