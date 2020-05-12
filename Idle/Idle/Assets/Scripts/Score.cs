@@ -16,19 +16,10 @@ public class Score : MonoBehaviour
     public static Text collectorText;
     public Text _collectorText;
 
-    public GameObject[] miners = new GameObject[3];
-    public GameObject[] minerPrefabs = new GameObject[3];
-    public GameObject[] minerUpgradeButton = new GameObject[3];
-    public GameObject[] minerBuyNewButton = new GameObject[3];
-
     public int[] minerAmount = { 40, 70, 100 };
-    public static int[] tempStorage = { 10, 20, 30 };
     private int collectorCost = 60;
 
-    public Transform[] minerSpawns = new Transform[3];
-
     CarrierSc carrier;
-
     void Start()
     {
         carrier = GameObject.FindGameObjectWithTag("carrier").GetComponent<CarrierSc>();
@@ -36,9 +27,6 @@ public class Score : MonoBehaviour
         gameData.GeneralPointsText = _generalPoints;
         collectorText = _collectorText;
         storageTexts = _storageTexts;
-        Canvas canvas = GetComponent<Canvas>();
-        canvas.worldCamera = Camera.main;
-
         Physics2D.IgnoreLayerCollision(9, 9);
         for (int i = 0; i < minerUpgradeText.Length; i++)
         {
@@ -48,32 +36,7 @@ public class Score : MonoBehaviour
         {
             gameData.TempPointsText[i] = _storageTexts[i];
         }
-        
-    }
-    public void AddNewOne(int minerType)
-    {
-        //if (gameData.GeneralPoints >= minerAmount[minerType])
-        //{
-            if (!miners[minerType].activeSelf)
-            {
-                miners[minerType].SetActive(true);
-                if (minerType > 0)
-                {
-                    minerUpgradeButton[minerType].SetActive(true);
-                }
-            }
-            else
-            {
-                GameObject _newMiner = Instantiate(minerPrefabs[minerType], new Vector3(minerSpawns[minerType].position.x, minerSpawns[minerType].position.y, minerSpawns[minerType].position.z), Quaternion.Euler(0, 0, 0)) as GameObject;
-            }
-            gameData.GeneralPoints += minerAmount[minerType];
-            minerAmount[minerType] *= 2;
-            minerBuyNewText[minerType].text = "Buy a new one: " + minerAmount[minerType].ToString();
-        //}
-    }
-    public void UpgradeMiner()
-    {
-        
+        gameData.GeneralPointsText.text = gameData._generalPoints.ToString(); // На всякий случай
     }
     public void UpgradeCollector()
     {

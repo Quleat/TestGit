@@ -8,6 +8,8 @@ TagManager:
   - shop
   - storage
   - carrier
+  - mushroom
+  - collector
   layers:
   - Default
   - TransparentFX

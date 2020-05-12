@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MushRoomGreen : MonoBehaviour
 {
-    public int MinerType = 2;
+    public int minerType = 2;
 
     Rigidbody2D rb;
-
-    public LayerMask WhatIsWall;
+    
+    public LayerMask watIsWall;
 
     public float distance = 0.1f;
 
@@ -17,21 +17,20 @@ public class MushRoomGreen : MonoBehaviour
     private GameObject tempStorage;
     void Start()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left,100f, WhatIsWall);
+        watIsWall = LayerMask.GetMask("wall");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left,100f, watIsWall);
         tempStorage = hit.collider.gameObject;
         rb = GetComponent<Rigidbody2D>();
-       mushRoom = new MushRoom(20, 3f, 0.2f, transform, WhatIsWall, distance, rb, tempStorage);
     }
     void FixedUpdate()
     {
-        mushRoom.Mine(Miner.SpeedGreen, Miner.SpeedGreen);
+        mushRoom.Mine();
     }
     public void UpgradeMiner()
     {
-        if (gameData.GeneralPoints >= Miner.IncomeGreen * 1)
-        {
-         //
-            gameData.GeneralPoints -= Miner.IncomeGreen * 1;
-        }
+       // if (gameData.GeneralPoints >= Miner.IncomeGreen * 1)
+        //{
+        //    gameData.GeneralPoints -= Miner.IncomeGreen * 1;
+        //}
     }
 }

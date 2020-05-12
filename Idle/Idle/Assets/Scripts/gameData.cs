@@ -12,7 +12,7 @@ public static class gameData
     public static Text[] TempPointsText = new Text[3];
 
     public static int _localPoints = 0;
-    public static int _generalPoints = 0;
+    public static int _generalPoints = 30;
     public static int LocalPoints
     {
         get

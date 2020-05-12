@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\MushRoomGreen.cs" />
     <Compile Include="Assets\Scripts\MushRoomRed.cs" />
     <Compile Include="Assets\Scripts\MushroomTest.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\Scores.cs" />
     <Compile Include="Assets\Scripts\TempStorage.cs" />
