@@ -12,8 +12,6 @@ public class MushRoomGreen : MonoBehaviour
 
     public float distance = 0.1f;
 
-    MushRoom mushRoom;
-
     private GameObject tempStorage;
     void Start()
     {
@@ -24,7 +22,7 @@ public class MushRoomGreen : MonoBehaviour
     }
     void FixedUpdate()
     {
-        mushRoom.Mine();
+
     }
     public void UpgradeMiner()
     {

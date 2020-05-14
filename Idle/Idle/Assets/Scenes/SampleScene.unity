@@ -868,6 +868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af944e228c3dc8e498e8dbca9bb5ff52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mushrooms:
+  - {fileID: 1819319105}
 --- !u!114 &348459008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,6 +1037,7 @@ MonoBehaviour:
   boostDuration: 30
   minerPrefab: {fileID: 3029358905773090818, guid: 87391bf6931ebb14f8362393f0144acb,
     type: 3}
+  platform: {fileID: 0}
   spawnPosition: {fileID: 914670656}
   upgradeText: {fileID: 860339149}
   AddNewText: {fileID: 1535696215}
@@ -1195,6 +1198,7 @@ MonoBehaviour:
   boostDuration: 30
   minerPrefab: {fileID: 2982780238244321948, guid: cdf6497c3be1aab42ac35c6f1c148e69,
     type: 3}
+  platform: {fileID: 0}
   spawnPosition: {fileID: 883124762}
   upgradeText: {fileID: 141681218569486726}
   AddNewText: {fileID: 141681218569486725}
@@ -2963,6 +2967,7 @@ MonoBehaviour:
   boostDuration: 30
   minerPrefab: {fileID: 3073637885396102324, guid: 3dacfb4ffe456dc46947bd3e05eca51a,
     type: 3}
+  platform: {fileID: 0}
   spawnPosition: {fileID: 254927741}
   upgradeText: {fileID: 860339149}
   AddNewText: {fileID: 141681218569486724}

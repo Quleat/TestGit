@@ -9,7 +9,9 @@ public class TempStorage : MonoBehaviour
     private int upgradeCost = 20;
     private int addCost = 30;
     private int level = 1;
-    private int moneyBoost = 1;
+    private int incomeBoost = 1;
+    private int speedBoost = 1;
+    private int digBoost = 1;
 
     public float speed = 0.1f;
     public float digTime = 5f;
@@ -18,6 +20,7 @@ public class TempStorage : MonoBehaviour
     private bool activeBoost = false;
 
     public GameObject minerPrefab;
+    public GameObject platform;
 
     public Transform spawnPosition;
 
@@ -29,7 +32,7 @@ public class TempStorage : MonoBehaviour
     }
     public void AddPoints()
     {
-        gameData.ChangeTempPoints(income * moneyBoost, minerType);
+        gameData.ChangeTempPoints(income * incomeBoost, minerType);
     }
     public void AddNew()
     {
@@ -61,9 +64,34 @@ public class TempStorage : MonoBehaviour
     {
         AddNewText.text = $"Buy a new one \n {addCost}";
     }
-    private IEnumerator activateBoost()
+
+    public void activateDigBoost()
+    {
+        if (!activeBoost)
+        {
+            StartCoroutine(workingBoost(digBoost));
+        }
+    }
+    public void activateIncomeBoost()
+    {
+        if (!activeBoost)
+        {
+            StartCoroutine(workingBoost(incomeBoost));
+        }
+    }
+    public void acitvateSpeedBoost()
+    {
+        if (!activeBoost)
+        {
+            StartCoroutine(workingBoost(speedBoost));
+        }
+    }
+    private IEnumerator workingBoost(float boost)
     {
         activeBoost = true;
+        boost *= 2;
         yield return new WaitForSeconds(boostDuration);
+        boost = 1;
+        activeBoost = false;
     }
 }
