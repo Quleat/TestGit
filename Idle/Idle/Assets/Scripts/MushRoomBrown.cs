@@ -6,7 +6,7 @@ public class MushRoomBrown : MonoBehaviour
 {
     public int minerType;
 
-    MushRoom mushRoom;
+    Mushroom mushroom;
 
     Rigidbody2D rb;
 
@@ -23,7 +23,7 @@ public class MushRoomBrown : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        mushRoom.Mine();
+        mushroom.Mine();
     }
     public void UpgradeMiner()
     {

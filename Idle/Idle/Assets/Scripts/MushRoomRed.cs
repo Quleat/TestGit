@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MushRoomRed : MushRoom
+public class MushRoomRed : MonoBehaviour
 {
     public int minerType = 2;
 
-    public LayerMask _whatIsWall;
+    public LayerMask whatIsWall;
 
-    public float _distance = 0.1f;
+    public float distance = 0.1f;
 
-    Rigidbody2D _rb;
+    Rigidbody2D rb;
 
-    MushRoom mushRoom;
-    void Awake()
+    Mushroom mushroom;
+    void Start()
     {
-        _whatIsWall = LayerMask.GetMask("wall");
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 100f, _whatIsWall);
-        GameObject _tempStorage = hit.collider.gameObject;
-        TempStorage ts = _tempStorage.GetComponent<TempStorage>();
-        _rb = GetComponent<Rigidbody2D>();
-        Initialize(5, 1f, 0.1f, _whatIsWall, 0.1f, _rb, _tempStorage);
-        StartCoroutine(active());
+        SaveLoad.Mushrooms.Add(gameObject);
+        rb = GetComponent<Rigidbody2D>();
+        whatIsWall = LayerMask.GetMask("wall");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 100f, whatIsWall);
+        GameObject _resourceStorage = hit.collider.gameObject;
+        TempStorage ts = _resourceStorage.GetComponent<ResourceStorageRed>().tempStorage;
+        mushroom = new Mushroom(ts.income, ts.digTime, ts.speed, whatIsWall, distance, rb, ts);
+        StartCoroutine(mushroom.active());
     }
 }

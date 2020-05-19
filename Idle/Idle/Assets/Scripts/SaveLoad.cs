@@ -10,7 +10,7 @@ public class SaveLoad : MonoBehaviour
     private string filePath;
     private Transform _player;
     private Transform _collector;
-    public List<GameObject> Mushrooms = new List<GameObject>();
+    public static List<GameObject> Mushrooms = new List<GameObject>();
     private void Start()
     {
         filePath = Application.persistentDataPath + "/save.idlesave";

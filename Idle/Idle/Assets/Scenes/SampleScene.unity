@@ -868,8 +868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af944e228c3dc8e498e8dbca9bb5ff52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mushrooms:
-  - {fileID: 1819319105}
 --- !u!114 &348459008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1027,20 +1025,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 353899920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2018b5c4d98f7d74fa0edeb152d7d82d, type: 3}
+  m_Script: {fileID: 11500000, guid: bd12dd3a0945a6f4587d829814313e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   minerType: 0
   income: 5
-  speed: 0.1
-  digTime: 5
-  boostDuration: 30
+  upgradeCost: 20
+  addCost: 40
+  speed: 1
+  digTime: 1
   minerPrefab: {fileID: 3029358905773090818, guid: 87391bf6931ebb14f8362393f0144acb,
     type: 3}
-  platform: {fileID: 0}
+  platform: {fileID: 7076045238031369053, guid: 510e53a0be4ac224bb79b0681f7bba11,
+    type: 3}
   spawnPosition: {fileID: 914670656}
   upgradeText: {fileID: 860339149}
-  AddNewText: {fileID: 1535696215}
+  addNewText: {fileID: 1535696215}
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 256
+  tempStorage: {fileID: 0}
 --- !u!1 &380844659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1206,9 @@ MonoBehaviour:
   spawnPosition: {fileID: 883124762}
   upgradeText: {fileID: 141681218569486726}
   AddNewText: {fileID: 141681218569486725}
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &455800953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2971,6 +2978,9 @@ MonoBehaviour:
   spawnPosition: {fileID: 254927741}
   upgradeText: {fileID: 860339149}
   AddNewText: {fileID: 141681218569486724}
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1500443337
 GameObject:
   m_ObjectHideFlags: 0
@@ -4543,7 +4553,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 353899923}
+      objectReference: {fileID: 0}
     - target: {fileID: 141681218344711306, guid: dd25a1e4d90446d4bb5402b0f59486f8,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4734,11 +4744,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 353899923}
+      objectReference: {fileID: 353899920}
     - target: {fileID: 141681219242502576, guid: dd25a1e4d90446d4bb5402b0f59486f8,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AddNew
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 141681219242502576, guid: dd25a1e4d90446d4bb5402b0f59486f8,
         type: 3}

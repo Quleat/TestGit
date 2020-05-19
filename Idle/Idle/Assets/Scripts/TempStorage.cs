@@ -12,7 +12,6 @@ public class TempStorage : MonoBehaviour
     private int incomeBoost = 1;
     private int speedBoost = 1;
     private int digBoost = 1;
-
     public float speed = 0.1f;
     public float digTime = 5f;
     public float boostDuration = 30f;
@@ -26,10 +25,22 @@ public class TempStorage : MonoBehaviour
 
     public Text upgradeText;
     public Text AddNewText;
-    void Start()
+    public LayerMask whatIsWall = LayerMask.GetMask("wall");
+    public  TempStorage(int minerType, int income, int upgradeCost, int addCost, float speed, float digTime, GameObject minerPrefab, GameObject platform, Transform spawnPosition, Text upgradeText, Text AddNewText, LayerMask whatIsWall)
     {
-        
+        this.minerType = minerType;
+        this.upgradeCost = upgradeCost;
+        this.addCost = addCost;
+        this.speed = speed;
+        this.digTime = digTime;
+        this.minerPrefab = minerPrefab;
+        this.platform = platform;
+        this.spawnPosition = spawnPosition;
+        this.upgradeText = upgradeText;
+        this.AddNewText = AddNewText;
+        this.whatIsWall = whatIsWall;
     }
+
     public void AddPoints()
     {
         gameData.ChangeTempPoints(income * incomeBoost, minerType);
@@ -51,7 +62,7 @@ public class TempStorage : MonoBehaviour
             gameData.GeneralPoints -= upgradeCost;
             income = (int)(income *1.5f);
             speed *= 1.5f;
-            upgradeCost *= 2;
+            upgradeCost *=(int) 2;
             level++;
             UpdateUpgradeButton();
         }
@@ -67,31 +78,26 @@ public class TempStorage : MonoBehaviour
 
     public void activateDigBoost()
     {
-        if (!activeBoost)
-        {
+        
             StartCoroutine(workingBoost(digBoost));
-        }
     }
     public void activateIncomeBoost()
     {
-        if (!activeBoost)
-        {
             StartCoroutine(workingBoost(incomeBoost));
-        }
     }
     public void acitvateSpeedBoost()
     {
-        if (!activeBoost)
-        {
             StartCoroutine(workingBoost(speedBoost));
-        }
     }
     private IEnumerator workingBoost(float boost)
     {
-        activeBoost = true;
-        boost *= 2;
-        yield return new WaitForSeconds(boostDuration);
-        boost = 1;
-        activeBoost = false;
+        if (!activeBoost)
+        {
+            activeBoost = true;
+            boost *= 2;
+            yield return new WaitForSeconds(boostDuration);
+            boost = 1;
+            activeBoost = false;
+        }
     }
 }

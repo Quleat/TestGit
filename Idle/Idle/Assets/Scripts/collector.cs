@@ -12,33 +12,29 @@ public class collector: MonoBehaviour
     private int carrying = 0;
     public bool activated = false;
     public  static float Speed = 0.5f;
+    public static Queue<GameObject> tempStorages;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(Collecting());
     }
-    void Update()
-    {
-
-    }
     IEnumerator Collecting()
     {
+        yield return new WaitForSeconds(0.1f);
+        Queue<GameObject> curTempStorage = tempStorages;
         while (true)
         {
             rb.velocity = new Vector2(0, Speed);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 10f);
-            if (hit.collider.gameObject.layer == 8)
+            if (transform.position.y >= curTempStorage.Peek().transform.position.y)
             {
-                Debug.DrawLine(transform.position, hit.transform.position);
-                int minerType = hit.collider.GetComponent<TempStorage>().minerType;
                 rb.velocity = new Vector2(0, 0);
+                int minerType = tempStorages.Count - curTempStorage.Count;
                 yield return new WaitForSeconds(1f);
                 carrying += gameData.TempStoragePoints[minerType];
-
                 gameData.ClearTempPoints(minerType);
                 rb.velocity = new Vector2(0, Speed);
-                RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.up, 100);
-                if (hit2 == false)
+                curTempStorage.Dequeue();
+                if (curTempStorage.Count == 0)
                 {
                     rb.velocity = new Vector2(0, 0);
                     StartCoroutine(Folding());
@@ -48,7 +44,6 @@ public class collector: MonoBehaviour
             }
             
             yield return new WaitForSeconds(0.1f);
-          
         }
     }
     IEnumerator Folding()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MushRoom : MonoBehaviour
+public class Mushroom : MonoBehaviour
 {
     public int Income = 1;
     public int Lvl = 1;
@@ -11,16 +11,18 @@ public class MushRoom : MonoBehaviour
     public float Speed = 1f;
     public float boostSpeed = 1f;
     public float boostMoney = 1f;
-    private float distance;
+    private float distance = 0.1f;
 
     LayerMask whatIsWall;
    
     Rigidbody2D rb;
 
-    private GameObject storage;
+    GameObject storage;
 
-    private TempStorage tempStorage;
-    public void Initialize(int inc, float dig, float spe, LayerMask _whatIsWall, float _distance, Rigidbody2D _rb, GameObject _storage)
+    TempStorage tempStorage;
+    
+    private Mushroom  mushroom;
+    public Mushroom(int inc, float dig, float spe, LayerMask _whatIsWall, float _distance, Rigidbody2D _rb, TempStorage ts)
     {
         Income = inc;
         DigTime = dig;
@@ -28,8 +30,7 @@ public class MushRoom : MonoBehaviour
         whatIsWall = _whatIsWall;
         distance = _distance;
         rb = _rb;
-        storage = _storage;
-        tempStorage = storage.GetComponent<TempStorage>();
+        tempStorage = ts;
     }
 
     public int Dig()
