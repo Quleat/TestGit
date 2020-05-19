@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public static class gameData
 {
+    public static Queue<GameObject> tempStorages = new Queue<GameObject>();
     public static int[] TempStoragePoints = new int[3];
 
     public static Text GeneralPointsText;
@@ -14,6 +15,7 @@ public static class gameData
     public static int _localPoints = 0;
     public static int _generalPoints = 30;
     public static int LocalPoints
+
     {
         get
         {

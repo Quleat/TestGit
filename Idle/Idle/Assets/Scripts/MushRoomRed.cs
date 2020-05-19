@@ -19,8 +19,9 @@ public class MushRoomRed : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         whatIsWall = LayerMask.GetMask("wall");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 100f, whatIsWall);
-        GameObject _resourceStorage = hit.collider.gameObject;
+        GameObject _resourceStorage = hit.collider.gameObject;  
         TempStorage ts = _resourceStorage.GetComponent<ResourceStorageRed>().tempStorage;
+        if(ts == null) Debug.Log("Empty");
         mushroom = new Mushroom(ts.income, ts.digTime, ts.speed, whatIsWall, distance, rb, ts);
         StartCoroutine(mushroom.active());
     }

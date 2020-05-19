@@ -25,12 +25,13 @@ public class ResourceStorageRed : MonoBehaviour
         //var ts = Type.GetType("TempStorage");
         //gameObject.AddComponent(ts);
         //TempStorage st = gameObject.AddComponent(typeof(TempStorage)) as TempStorage; 
-        
-        collector.tempStorages.Enqueue(gameObject);
+        tempStorage = new TempStorage(minerType, income, upgradeCost, addCost,speed, digTime, minerPrefab, platform, spawnPosition, upgradeText, addNewText, whatIsWall);
+        gameData.tempStorages.Enqueue(gameObject);
     }
     void Start()
     {
-        tempStorage = new TempStorage(minerType, income, upgradeCost, addCost,speed, digTime, minerPrefab, platform, spawnPosition, upgradeText, addNewText, whatIsWall);
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        
     }
     public void addNew()
     {

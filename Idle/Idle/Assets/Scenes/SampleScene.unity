@@ -478,6 +478,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2982780238244321939, guid: cdf6497c3be1aab42ac35c6f1c148e69,
+        type: 3}
+      propertyPath: whatIsWall.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 2982780238244321948, guid: cdf6497c3be1aab42ac35c6f1c148e69,
         type: 3}
       propertyPath: m_Name
@@ -969,6 +974,7 @@ GameObject:
   - component: {fileID: 353899922}
   - component: {fileID: 353899921}
   - component: {fileID: 353899923}
+  - component: {fileID: 353899924}
   m_Layer: 8
   m_Name: 1stStorage
   m_TagString: 1st
@@ -1045,6 +1051,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   tempStorage: {fileID: 0}
+--- !u!50 &353899924
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353899920}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &380844659
 GameObject:
   m_ObjectHideFlags: 0

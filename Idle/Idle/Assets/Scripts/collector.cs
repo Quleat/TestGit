@@ -9,10 +9,10 @@ public class collector: MonoBehaviour
     public LayerMask WhatIsTempStorage;
     public LayerMask WhatIsCollectorEnd;
     public float waitTime = 15f;
-    private int carrying = 0;
+    private int carrying = 10;
     public bool activated = false;
     public  static float Speed = 0.5f;
-    public static Queue<GameObject> tempStorages;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,14 +21,14 @@ public class collector: MonoBehaviour
     IEnumerator Collecting()
     {
         yield return new WaitForSeconds(0.1f);
-        Queue<GameObject> curTempStorage = tempStorages;
+        Queue<GameObject> curTempStorage = gameData.tempStorages;
         while (true)
         {
             rb.velocity = new Vector2(0, Speed);
             if (transform.position.y >= curTempStorage.Peek().transform.position.y)
             {
                 rb.velocity = new Vector2(0, 0);
-                int minerType = tempStorages.Count - curTempStorage.Count;
+                int minerType = gameData.tempStorages.Count - curTempStorage.Count;
                 yield return new WaitForSeconds(1f);
                 carrying += gameData.TempStoragePoints[minerType];
                 gameData.ClearTempPoints(minerType);
