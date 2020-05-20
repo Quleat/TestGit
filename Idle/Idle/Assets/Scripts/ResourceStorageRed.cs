@@ -31,10 +31,16 @@ public class ResourceStorageRed : MonoBehaviour
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        
+        //gameData.ChangeTempPoints(100, 2);
+        gameData.ChangeTempPoints(100, 1);
+
     }
     public void addNew()
     {
         tempStorage.AddNew();
+    }
+    void Update()
+    {
+        gameData.TempPointsText[1].text = gameData.TempStoragePoints[1].ToString();
     }
 }

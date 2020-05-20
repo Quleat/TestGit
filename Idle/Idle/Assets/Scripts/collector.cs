@@ -13,6 +13,7 @@ public class collector: MonoBehaviour
     public bool activated = false;
     public  static float Speed = 0.5f;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,19 +22,37 @@ public class collector: MonoBehaviour
     IEnumerator Collecting()
     {
         yield return new WaitForSeconds(0.1f);
-        Queue<GameObject> curTempStorage = gameData.tempStorages;
+        int storCount = gameData.tempStorages.Count;
+        Queue<GameObject> curTempStorage = new Queue<GameObject>();
+        foreach(GameObject g in gameData.tempStorages)
+        {
+            curTempStorage.Enqueue(g);
+        }
         while (true)
         {
+            
             rb.velocity = new Vector2(0, Speed);
             if (transform.position.y >= curTempStorage.Peek().transform.position.y)
             {
+                
                 rb.velocity = new Vector2(0, 0);
-                int minerType = gameData.tempStorages.Count - curTempStorage.Count;
+                int minerType = storCount - curTempStorage.Count;
                 yield return new WaitForSeconds(1f);
                 carrying += gameData.TempStoragePoints[minerType];
                 gameData.ClearTempPoints(minerType);
                 rb.velocity = new Vector2(0, Speed);
+                
                 curTempStorage.Dequeue();
+                if(gameData.tempStorages.Count > storCount) 
+                {
+                    foreach(GameObject g in gameData.tempStorages)
+                    {
+                         curTempStorage.Enqueue(g);
+                         storCount++;
+                         if(gameData.tempStorages.Count == storCount) break;
+                    }
+                   
+                }
                 if (curTempStorage.Count == 0)
                 {
                     rb.velocity = new Vector2(0, 0);

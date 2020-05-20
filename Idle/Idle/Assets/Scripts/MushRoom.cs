@@ -14,11 +14,8 @@ public class Mushroom : MonoBehaviour
     private float distance = 0.1f;
 
     LayerMask whatIsWall;
-   
     Rigidbody2D rb;
-
     GameObject storage;
-
     TempStorage tempStorage;
     
     private Mushroom  mushroom;
