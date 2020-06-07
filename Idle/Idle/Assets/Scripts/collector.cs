@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 public class collector: MonoBehaviour
 {
     Rigidbody2D rb;
@@ -61,12 +62,12 @@ public class collector: MonoBehaviour
                 }
                 yield return new WaitForSeconds(0.5f);
             }
-            
             yield return new WaitForSeconds(0.1f);
         }
     }
     IEnumerator Folding()
     {
+    
         while (true) 
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);

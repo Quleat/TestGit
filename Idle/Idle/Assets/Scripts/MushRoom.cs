@@ -47,24 +47,23 @@ public class Mushroom : MonoBehaviour
     {
         while (true)
         {
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), distance, whatIsWall);
-            bool hit = true;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), distance, whatIsWall);
             if (hit)
             {
-                //if (hit.collider.gameObject == storage)
-                //{
+                if (hit.collider.gameObject == storage)
+                {
                     tempStorage.AddPoints();
                     Speed = tempStorage.speed;
                     Income = tempStorage.income;
                     Rotate();
                     yield return null;
-                //}
-                //else
-                //{
+                }
+                else
+                {
                     rb.velocity = new Vector2(0, 0);
                     yield return new WaitForSeconds(DigTime);
                     Rotate();
-               // }
+               }
             }
             else
             {

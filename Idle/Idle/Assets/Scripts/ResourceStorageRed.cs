@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.UI;
 
 public class ResourceStorageRed : MonoBehaviour
@@ -32,7 +33,7 @@ public class ResourceStorageRed : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         //gameData.ChangeTempPoints(100, 2);
-        gameData.ChangeTempPoints(100, 1);
+        //gameData.ChangeTempPoints(100, 0);
 
     }
     public void addNew()
