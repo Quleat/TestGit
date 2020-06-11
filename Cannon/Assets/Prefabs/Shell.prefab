@@ -95,6 +95,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0
+  x: 0
+  speed: {x: 1, y: 1}
+  firYforce: 0
+  curYForce: 3
+  minYForce: 1
+  xForce: 3.6
+  interpolation: 0.5
 --- !u!50 &982508580478153636
 Rigidbody2D:
   serializedVersion: 4
@@ -110,7 +117,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
