@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public static class Resources
 {
-    
+    static public int score = 0;
 }

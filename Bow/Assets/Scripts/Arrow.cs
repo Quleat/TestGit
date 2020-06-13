@@ -12,13 +12,14 @@ public class Arrow : MonoBehaviour
     void Damage(Collider2D collision)
     {
         GameObject enemy = collision.gameObject;
-        if(collision.tag == "Box")
+        if(enemy.tag == "Box")
         {
-            
-        }else
-        {
-        enemy.GetComponent<Zombie>().GetDamage(damage);
+            enemy.GetComponent<Box>().OpenBox();
         }
+        if(enemy.tag == "Enemy")
+        {
+        enemy.GetComponent<Enemy>().GetDamage(damage);
         Destroy(gameObject);
+        }
     }
 }

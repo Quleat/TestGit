@@ -14,6 +14,11 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
 
     public List<GameObject> dropItems = new List<GameObject>();
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        Move();
+    }
     public void GetDamage(float damage)
     {
         hp -= damage;
@@ -33,6 +38,7 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
-
+        GameObject _drop = Instantiate(dropItems[Random.Range(0, dropItems.Capacity)], transform.position, Quaternion.Euler(0,0,0));
+        Destroy(gameObject);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Control : MonoBehaviour
 {
-    float mouseY;
+    float InputY;
     public float damage = 1;
     public float sensitivity = 1f;
     public float arrowSpeed = 1f;
@@ -28,7 +28,7 @@ public class Control : MonoBehaviour
     }
     void MouseControl()
     {
-        rb.velocity = new Vector2(0, mouseY * sensitivity);
+        rb.velocity = new Vector2(0, InputY * sensitivity);
     }
     void Shoot()
     {
@@ -38,8 +38,8 @@ public class Control : MonoBehaviour
     }
     void GetInput()
     {
-        mouseY = Input.GetAxis("Mouse Y");
-        fireButton = Input.GetMouseButtonDown(0);
+        InputY = Input.GetAxis("Vertical");
+        fireButton = Input.GetKeyDown(KeyCode.D);
     }
     IEnumerator Shooting()
     {
