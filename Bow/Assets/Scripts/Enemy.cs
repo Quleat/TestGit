@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public float hp = 1;
+    public int maxhp = 100;
+    public float hp = 100;
     public float damage;
     public float speed = -1f;
 
@@ -16,6 +17,10 @@ public class Enemy : MonoBehaviour
     public List<GameObject> dropItems = new List<GameObject>();
     void Start()
     {
+        //HealthSlider 
+        GameObject slider = Instantiate<GameObject>(Resources.Load<GameObject>("HealthSlider"));
+        slider.transform.SetParent(GameObject.Find("XCanvas").transform);
+        slider.GetComponent<HealthSlider>().Target = this;
         rb = GetComponent<Rigidbody2D>();
         Move();
     }
