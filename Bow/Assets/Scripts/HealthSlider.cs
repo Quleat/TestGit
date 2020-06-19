@@ -17,7 +17,6 @@ public class HealthSlider : MonoBehaviour
     {
         if(Target == null) return;
         Vector3 newPos = Camera.main.WorldToScreenPoint(Target.transform.position);
-        
         GetComponent<RectTransform>().position = newPos;
 
     }

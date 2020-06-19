@@ -9,6 +9,7 @@ public class Control : MonoBehaviour
     public float sensitivity = 1f;
     public float arrowSpeed = 1f;
     public float fireRate = 0.5f;
+    public float oth = 1f;
 
     bool fireButton;
 
@@ -24,16 +25,16 @@ public class Control : MonoBehaviour
     void Update()
     {
         GetInput();
-        MouseControl();
+        KeyboardControl();
     }
-    void MouseControl()
+    void KeyboardControl()
     {
         rb.velocity = new Vector2(0, InputY * sensitivity);
     }
     void Shoot()
     {
         GameObject _arrow = Instantiate(arrowPrefab, transform.position, Quaternion.Euler(0,0,0));
-        _arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(1,0);
+        _arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(arrowSpeed,0);
         _arrow.GetComponent<Arrow>().damage = damage;
     }
     void GetInput()

@@ -45,6 +45,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\DamageIndicator.cs" />
      <Compile Include="Assets\Scripts\Arrow.cs" />
      <Compile Include="Assets\Scripts\Box.cs" />
      <Compile Include="Assets\Scripts\Control.cs" />
@@ -56,40 +57,43 @@
      <Compile Include="Assets\Scripts\Main.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\StateMachine.cs" />
+     <Compile Include="Assets\Scripts\Upgradable.cs" />
+     <Compile Include="Assets\Scripts\Upgradable1.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
+     <Compile Include="Assets\Scripts\XCanvas.cs" />
      <Compile Include="Assets\Scripts\Zombie.cs" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>D:/TestGit1/TestGit/Bow/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>I:/UnityAndET/GitHub/Bow/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -273,12 +277,6 @@
  </Reference>
  <Reference Include="UnityEditor">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.iOS.Extensions.Common">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

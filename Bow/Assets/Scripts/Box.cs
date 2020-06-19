@@ -19,7 +19,7 @@ public class Box : MonoBehaviour
     }
     public void OpenBox()
     {
-        //Resources.score += score;
+        XCanvas.points += score;
         Destroy(gameObject);
     }
 }

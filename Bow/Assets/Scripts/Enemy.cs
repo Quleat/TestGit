@@ -10,27 +10,49 @@ public class Enemy : MonoBehaviour
     public float damage;
     public float speed = -1f;
 
-    public Slider slider;
-
     protected Rigidbody2D rb;
 
     public List<GameObject> dropItems = new List<GameObject>();
+
+    GameObject slider;
+    Slider _slider;
+    GameObject damageIndication;
+    Text _damageIndication;
     void Start()
     {
         //HealthSlider 
-        GameObject slider = Instantiate<GameObject>(Resources.Load<GameObject>("HealthSlider"));
-        slider.transform.SetParent(GameObject.Find("XCanvas").transform);
+        AdjustDifficulity();
+        slider = Instantiate<GameObject>(Resources.Load<GameObject>("HealthSlider"));
+        slider.transform.SetParent(GameObject.Find("Canvas").transform);
         slider.GetComponent<HealthSlider>().Target = this;
+        _slider = slider.GetComponent<Slider>();
+        _slider.maxValue = hp;
+        _slider.value =  hp; 
         rb = GetComponent<Rigidbody2D>();
         Move();
     }
     public void GetDamage(float damage)
     {
+        IndicateDamage(damage);
         hp -= damage;
+        _slider.value =  hp;
         if(hp <= 0)
         {
             Die();
         }
+    }
+    void IndicateDamage(float damage)
+    {
+    damageIndication = Instantiate<GameObject>(Resources.Load<GameObject>("DamageIndication")); // Надо закешировать
+    damageIndication.transform.SetParent(GameObject.Find("Canvas").transform);
+    damageIndication.GetComponent<Text>().text = damage.ToString();
+    damageIndication.GetComponent<DamageIndicator>().Target = this;
+    Destroy(damageIndication, 2f);
+    }
+    void AdjustDifficulity()
+    {
+        hp *= Main.level;
+        damage *= Main.level;
     }
     protected virtual void Move()
     {
@@ -43,7 +65,9 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
-        GameObject _drop = Instantiate(dropItems[Random.Range(0, dropItems.Capacity)], transform.position, Quaternion.Euler(0,0,0));
+        GameObject _drop = Instantiate(dropItems[Random.Range(0, dropItems.Capacity - 1)], transform.position, Quaternion.Euler(0,0,0));
+        Destroy(damageIndication);
+        Destroy(slider);
         Destroy(gameObject);
     }
 }
